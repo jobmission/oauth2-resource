@@ -1,10 +1,10 @@
 package com.revengemission.sso.oauth2.resource.coupon.config;
 
-import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -14,13 +14,20 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Value("${tokenKeyUri}")
+    private String tokenKeyUri;
 
     @Bean
     public TokenStore tokenStore() {
@@ -36,14 +43,29 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        Resource resource = new ClassPathResource("public.txt");
         String publicKey = null;
-        try {
+        /*try {
+            Resource resource = new ClassPathResource("public.txt");
             publicKey = IOUtils.toString(resource.getInputStream(), "UTF-8");
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error("get public key exception", e);
+            }
+        }*/
+
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            Map<String, String> result = new HashMap<>();
+            result = restTemplate.getForObject(tokenKeyUri, result.getClass());
+            if (result != null && result.size() > 0) {
+                publicKey = result.get("value");
+            }
+        } catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error("get public key exception", e);
+            }
         }
-        accessTokenConverter.setVerifierKey(publicKey);// 测试用,授权服务使用相同的字符达到一个对称加密的效果,生产时候使用RSA非对称加密方式
+        accessTokenConverter.setVerifierKey(publicKey);
         return accessTokenConverter;
     }
 

@@ -25,7 +25,7 @@ import java.util.Map;
 @Component
 public class WebRequestLogAspect {
 
-    private static Logger logger = LoggerFactory.getLogger(WebRequestLogAspect.class);
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Pointcut("execution(public * com.revengemission.sso.oauth2.resource.coupon.controller.*.*(..))")
     public void wsLog() {
@@ -53,7 +53,7 @@ public class WebRequestLogAspect {
                 if (object != null) {
                     requestBody = JSONUtil.objectToJSONString(object);
                 }
-                logger.info("\nRequest from " + request.getRemoteHost() +
+                log.info("\nRequest from " + request.getRemoteHost() +
                         ";\nHeaders =" + JSONUtil.objectToJSONString(getHeadersInfo(request)) +
                         ";\nuri =" + request.getRequestURL().toString() +
                         "; \nrequest method=" + request.getMethod() +
@@ -61,7 +61,7 @@ public class WebRequestLogAspect {
                         ";\nrequest parameters=" + parametersString +
                         ";\nrequest body=" + requestBody);
             } catch (Exception e) {
-                logger.info("Request Object To Json  Exception: " + e);
+                log.info("Request Object To Json  Exception: " + e);
             }
         }
 
@@ -71,9 +71,9 @@ public class WebRequestLogAspect {
     public void doAfterReturning(Object ret) throws Throwable {
         // 处理完请求，返回内容
         try {
-            logger.info("Response from server : \n" + JSONUtil.objectToJSONString(ret));
+            log.info("Response from server : \n" + JSONUtil.objectToJSONString(ret));
         } catch (Exception e) {
-            logger.info("Response Object To Json  Exception:\n " + e);
+            log.info("Response Object To Json  Exception:\n " + e);
         }
 
     }
