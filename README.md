@@ -1,15 +1,15 @@
-##接口采用Spring security OAuth2 ResourceServer认证<br/>
+## 接口采用Spring security OAuth2 ResourceServer认证
 
 ## 传递token三种方式
-* 请求时添加header
+* 请求时添加Authorization header
 ````
 Authorization : Bearer xxxxx
 ````
-* 请求地址后添加参数access_token
+* 请求地址添加参数access_token
 ````
 /api/a?access_token=xxxxx
 ````
-* cookie 方式access_token
+* cookie方式 添加access_token
 ````
 access_token=xxxxx
 ````
