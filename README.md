@@ -3,15 +3,15 @@
 ## 传递token三种方式
 * 请求时添加Authorization header
 ````
-Authorization : Bearer xxxxx
+Authorization:Bearer a.b.c
 ````
 * 请求地址添加参数access_token
 ````
-/api/a?access_token=xxxxx
+/api/a?access_token=a.b.c
 ````
 * cookie方式 添加access_token
 ````
-access_token=xxxxx
+access_token=a.b.c
 ````
 
 ### 当client,resource和server在一台主机时，请用域名访问，否则cookies会相互覆盖，影响测试，以下配置仅供参考
