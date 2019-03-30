@@ -19,7 +19,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
-                .mvcMatchers("/coupon/**", "/user/me").hasAnyAuthority("SCOPE_read")
+                .mvcMatchers("/coupon/**").hasAnyAuthority("SCOPE_read")
                 .anyRequest().authenticated()
                 .and()
                 .oauth2ResourceServer().bearerTokenResolver(new CustomTokenResolver())

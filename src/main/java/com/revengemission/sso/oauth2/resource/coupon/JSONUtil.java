@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class JSONUtil {
         if (object != null && object.size() > 0) {
             object.forEach((k, v) -> {
                 if (v != null && v.length > 0) {
-                    newMap.put(k, StringUtils.join(v, ","));
+                    newMap.put(k, Arrays.toString(v));
                 }
             });
         }
