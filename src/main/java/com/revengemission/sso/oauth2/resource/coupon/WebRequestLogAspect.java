@@ -35,33 +35,50 @@ public class WebRequestLogAspect {
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         // 接收到请求，记录请求内容
 
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        if (attributes != null) {
-            HttpServletRequest request = attributes.getRequest();
-            // 记录下请求内容
-            Map<String, String[]> parameters = request.getParameterMap();
+        if (log.isInfoEnabled()) {
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            if (attributes != null) {
+                HttpServletRequest request = attributes.getRequest();
+                // 记录下请求内容
+                Map<String, String[]> parameters = request.getParameterMap();
 
-            try {
-                String parametersString = null;
-                String requestBody = null;
-                if (parameters != null) {
-                    parametersString = JSONUtil.multiValueMapToJSONString(parameters);
+                try {
+                    String parametersString = null;
+                    String requestBody = null;
+                    if (parameters != null) {
+                        parametersString = JSONUtil.multiValueMapToJSONString(parameters);
+                    }
+                    MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+                    Method method = signature.getMethod(); //获取被拦截的方法
+                    Object object = getAnnotatedParameterValueRequestBody(method, joinPoint.getArgs());
+                    if (object != null) {
+                        requestBody = JSONUtil.objectToJSONString(object);
+                    }
+                    StringBuffer stringBuffer = new StringBuffer();
+                    stringBuffer.append("\nRequest from ");
+                    stringBuffer.append(request.getRemoteHost());
+                    stringBuffer.append(";\n");
+                    stringBuffer.append("uri = ");
+                    stringBuffer.append(request.getRequestURL().toString());
+                    stringBuffer.append(";\n");
+                    stringBuffer.append("request method = ");
+                    stringBuffer.append(request.getMethod());
+                    stringBuffer.append(";\n");
+                    stringBuffer.append("content type = ");
+                    stringBuffer.append(request.getContentType());
+                    stringBuffer.append(";\n");
+                    stringBuffer.append("request parameters = ");
+                    stringBuffer.append(parametersString);
+                    stringBuffer.append(";\n");
+                    stringBuffer.append("request body = ");
+                    stringBuffer.append(requestBody);
+                    stringBuffer.append(";\n");
+
+                    log.info(stringBuffer.toString());
+
+                } catch (Exception e) {
+                    log.info("log http request Exception: ", e);
                 }
-                MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-                Method method = signature.getMethod(); //获取被拦截的方法
-                Object object = getAnnotatedParameterValueRequestBody(method, joinPoint.getArgs());
-                if (object != null) {
-                    requestBody = JSONUtil.objectToJSONString(object);
-                }
-                log.info("\nRequest from " + request.getRemoteHost() +
-                        ";\nHeaders =" + JSONUtil.objectToJSONString(getHeadersInfo(request)) +
-                        ";\nuri =" + request.getRequestURL().toString() +
-                        "; \nrequest method=" + request.getMethod() +
-                        "; \ncontent type=" + request.getContentType() +
-                        ";\nrequest parameters=" + parametersString +
-                        ";\nrequest body=" + requestBody);
-            } catch (Exception e) {
-                log.info("Request Object To Json  Exception: " + e);
             }
         }
 
@@ -70,11 +87,14 @@ public class WebRequestLogAspect {
     @AfterReturning(returning = "ret", pointcut = "wsLog()")
     public void doAfterReturning(Object ret) throws Throwable {
         // 处理完请求，返回内容
-        try {
-            log.info("Response from server : \n" + JSONUtil.objectToJSONString(ret));
-        } catch (Exception e) {
-            log.info("Response Object To Json  Exception:\n " + e);
+        if (log.isInfoEnabled()) {
+            try {
+                log.info("Response from server : \n" + JSONUtil.objectToJSONString(ret));
+            } catch (Exception e) {
+                log.info("log http response Exception:\n ", e);
+            }
         }
+
 
     }
 

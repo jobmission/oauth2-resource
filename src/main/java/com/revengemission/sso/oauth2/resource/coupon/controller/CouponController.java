@@ -1,18 +1,22 @@
 package com.revengemission.sso.oauth2.resource.coupon.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-@Controller
+@RestController
 public class CouponController {
 
-    @ResponseBody
-    @RequestMapping("/coupon/list")
-    public String couponList(Principal principal) {
+    @GetMapping("/coupon/list")
+    public Map<String, Object> couponList(Principal principal) {
         System.out.println(principal);
-        return "many to many";
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 1);
+        result.put("data", new ArrayList<>());
+        return result;
     }
 }
