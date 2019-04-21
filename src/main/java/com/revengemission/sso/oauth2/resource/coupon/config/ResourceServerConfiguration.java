@@ -2,6 +2,7 @@ package com.revengemission.sso.oauth2.resource.coupon.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -30,7 +31,10 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
+                .cors()
+                .and()
                 .authorizeRequests()
+                .mvcMatchers(HttpMethod.OPTIONS).permitAll()
                 .mvcMatchers("/coupon/**").hasAnyAuthority("SCOPE_user_info")
                 .anyRequest().authenticated()
                 .and()
