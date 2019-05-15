@@ -46,13 +46,13 @@ public class WebRequestLogAspect {
                     String parametersString = null;
                     String requestBody = null;
                     if (parameters != null) {
-                        parametersString = JSONUtil.multiValueMapToJSONString(parameters);
+                        parametersString = JsonUtil.multiValueMapToJSONString(parameters);
                     }
                     MethodSignature signature = (MethodSignature) joinPoint.getSignature();
                     Method method = signature.getMethod(); //获取被拦截的方法
                     Object object = getAnnotatedParameterValueRequestBody(method, joinPoint.getArgs());
                     if (object != null) {
-                        requestBody = JSONUtil.objectToJSONString(object);
+                        requestBody = JsonUtil.objectToJSONString(object);
                     }
                     StringBuffer stringBuffer = new StringBuffer();
                     stringBuffer.append("\nRequest from ");
@@ -89,7 +89,7 @@ public class WebRequestLogAspect {
         // 处理完请求，返回内容
         if (log.isInfoEnabled()) {
             try {
-                log.info("Response from server : \n" + JSONUtil.objectToJSONString(ret));
+                log.info("Response from server : \n" + JsonUtil.objectToJSONString(ret));
             } catch (Exception e) {
                 log.info("log http response Exception:\n ", e);
             }

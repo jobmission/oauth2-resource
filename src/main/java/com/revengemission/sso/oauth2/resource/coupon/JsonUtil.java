@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Created by zhang wanchao on 17-12-29.
  */
-public class JSONUtil {
+public class JsonUtil {
 
     public static String objectToJSONString(Object object) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();

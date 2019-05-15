@@ -6,7 +6,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-/*部分接口需要跨域支持*/
+
+/**
+ * 部分接口需要跨域支持
+ */
 @Configuration
 public class CustomCorsConfiguration {
 
