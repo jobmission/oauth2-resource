@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
  * 提取JWT中的claim作为权限依据，默认是scope,详见JwtAuthenticationConverter
  */
 public class GrantedAuthoritiesExtractor extends JwtAuthenticationConverter {
+    
+    @SuppressWarnings("unchecked")
     protected Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
         Collection<String> authorities = (Collection<String>) jwt.getClaims().get("authorities");
 

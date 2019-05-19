@@ -60,6 +60,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
         return new GrantedAuthoritiesExtractor();
     }
 
+    @SuppressWarnings("unchecked")
     @Bean
     JwtDecoder jwtDecoder() {
         NimbusJwtDecoderJwkSupport jwtDecoder = new NimbusJwtDecoderJwkSupport(oAuth2ResourceServerProperties.getJwt().getJwkSetUri());
