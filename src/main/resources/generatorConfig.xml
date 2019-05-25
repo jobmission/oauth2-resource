@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="MySql2Tables" targetRuntime="MyBatis3">
+        <property name="mergeable" value="false"/>
+        <!--
+        http://www.mybatis.org/generator/reference/plugins.html
+        -->
+        <!-- 这个插件给由MBG生成的Java模型对象增加了equals和hashCode方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!--去除注释  -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库连接 -->
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/coupon_db"
+                        userId="coupon"
+                        password="password_dev!">
+            <property name="useSSL" value="false"/>
+            <property name="characterEncoding" value="utf8"/>
+            <property name="serverTimezone" value="GMT+8"/>
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.revengemission.sso.oauth2.resource.coupon.persistence.entity"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="auto" targetProject="src/main/resources/mybatis">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.revengemission.sso.oauth2.resource.coupon.persistence.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="%_entity">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="version" javaType="int"/>
+            <columnOverride column="sort_priority" javaType="int"/>
+            <columnOverride column="record_status" javaType="int"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

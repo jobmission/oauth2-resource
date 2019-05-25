@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.revengemission.sso.oauth2.resource.coupon.persistence.mapper.CouponTemplateEntityMapper">
+  <resultMap id="BaseResultMap" type="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="template_name" jdbcType="VARCHAR" property="templateName" />
+    <result column="coupon_name" jdbcType="VARCHAR" property="couponName" />
+    <result column="cover_image_url" jdbcType="VARCHAR" property="coverImageUrl" />
+    <result column="coupon_type" jdbcType="INTEGER" property="couponType" />
+    <result column="full_limit" jdbcType="INTEGER" property="fullLimit" />
+    <result column="face_value" jdbcType="DECIMAL" property="faceValue" />
+    <result column="scope_of_application_type" jdbcType="INTEGER" property="scopeOfApplicationType" />
+    <result column="scope_of_application" jdbcType="VARCHAR" property="scopeOfApplication" />
+    <result column="validity_period_type" jdbcType="INTEGER" property="validityPeriodType" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="valid_period_hours" jdbcType="INTEGER" property="validPeriodHours" />
+    <result column="maximum_quantity" jdbcType="INTEGER" property="maximumQuantity" />
+    <result column="maximum_per_user" jdbcType="INTEGER" property="maximumPerUser" />
+    <result column="quantity_issued" jdbcType="INTEGER" property="quantityIssued" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="record_status" jdbcType="INTEGER" property="recordStatus" />
+    <result column="sort_priority" jdbcType="INTEGER" property="sortPriority" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="date_created" jdbcType="TIMESTAMP" property="dateCreated" />
+    <result column="last_modified" jdbcType="TIMESTAMP" property="lastModified" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, template_name, coupon_name, cover_image_url, coupon_type, full_limit, face_value, 
+    scope_of_application_type, scope_of_application, validity_period_type, begin_time, 
+    end_time, valid_period_hours, maximum_quantity, maximum_per_user, quantity_issued, 
+    version, record_status, sort_priority, remark, date_created, last_modified
+  </sql>
+  <select id="selectByExample" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from coupon_template_entity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from coupon_template_entity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from coupon_template_entity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntityExample">
+    delete from coupon_template_entity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntity">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into coupon_template_entity (template_name, coupon_name, cover_image_url, 
+      coupon_type, full_limit, face_value, 
+      scope_of_application_type, scope_of_application, 
+      validity_period_type, begin_time, end_time, 
+      valid_period_hours, maximum_quantity, maximum_per_user, 
+      quantity_issued, version, record_status, 
+      sort_priority, remark, date_created, 
+      last_modified)
+    values (#{templateName,jdbcType=VARCHAR}, #{couponName,jdbcType=VARCHAR}, #{coverImageUrl,jdbcType=VARCHAR}, 
+      #{couponType,jdbcType=INTEGER}, #{fullLimit,jdbcType=INTEGER}, #{faceValue,jdbcType=DECIMAL}, 
+      #{scopeOfApplicationType,jdbcType=INTEGER}, #{scopeOfApplication,jdbcType=VARCHAR}, 
+      #{validityPeriodType,jdbcType=INTEGER}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{validPeriodHours,jdbcType=INTEGER}, #{maximumQuantity,jdbcType=INTEGER}, #{maximumPerUser,jdbcType=INTEGER}, 
+      #{quantityIssued,jdbcType=INTEGER}, #{version,jdbcType=BIGINT}, #{recordStatus,jdbcType=INTEGER}, 
+      #{sortPriority,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{dateCreated,jdbcType=TIMESTAMP}, 
+      #{lastModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntity">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into coupon_template_entity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="templateName != null">
+        template_name,
+      </if>
+      <if test="couponName != null">
+        coupon_name,
+      </if>
+      <if test="coverImageUrl != null">
+        cover_image_url,
+      </if>
+      <if test="couponType != null">
+        coupon_type,
+      </if>
+      <if test="fullLimit != null">
+        full_limit,
+      </if>
+      <if test="faceValue != null">
+        face_value,
+      </if>
+      <if test="scopeOfApplicationType != null">
+        scope_of_application_type,
+      </if>
+      <if test="scopeOfApplication != null">
+        scope_of_application,
+      </if>
+      <if test="validityPeriodType != null">
+        validity_period_type,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="validPeriodHours != null">
+        valid_period_hours,
+      </if>
+      <if test="maximumQuantity != null">
+        maximum_quantity,
+      </if>
+      <if test="maximumPerUser != null">
+        maximum_per_user,
+      </if>
+      <if test="quantityIssued != null">
+        quantity_issued,
+      </if>
+      version,
+      record_status,
+      sort_priority,
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="dateCreated != null">
+        date_created,
+      </if>
+      <if test="lastModified != null">
+        last_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="templateName != null">
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponName != null">
+        #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImageUrl != null">
+        #{coverImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null">
+        #{couponType,jdbcType=INTEGER},
+      </if>
+      <if test="fullLimit != null">
+        #{fullLimit,jdbcType=INTEGER},
+      </if>
+      <if test="faceValue != null">
+        #{faceValue,jdbcType=DECIMAL},
+      </if>
+      <if test="scopeOfApplicationType != null">
+        #{scopeOfApplicationType,jdbcType=INTEGER},
+      </if>
+      <if test="scopeOfApplication != null">
+        #{scopeOfApplication,jdbcType=VARCHAR},
+      </if>
+      <if test="validityPeriodType != null">
+        #{validityPeriodType,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validPeriodHours != null">
+        #{validPeriodHours,jdbcType=INTEGER},
+      </if>
+      <if test="maximumQuantity != null">
+        #{maximumQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="maximumPerUser != null">
+        #{maximumPerUser,jdbcType=INTEGER},
+      </if>
+      <if test="quantityIssued != null">
+        #{quantityIssued,jdbcType=INTEGER},
+      </if>
+      #{version,jdbcType=BIGINT},
+      #{recordStatus,jdbcType=INTEGER},
+      #{sortPriority,jdbcType=INTEGER},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dateCreated != null">
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntityExample" resultType="java.lang.Long">
+    select count(*) from coupon_template_entity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update coupon_template_entity
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.templateName != null">
+        template_name = #{record.templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponName != null">
+        coupon_name = #{record.couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverImageUrl != null">
+        cover_image_url = #{record.coverImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponType != null">
+        coupon_type = #{record.couponType,jdbcType=INTEGER},
+      </if>
+      <if test="record.fullLimit != null">
+        full_limit = #{record.fullLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.faceValue != null">
+        face_value = #{record.faceValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.scopeOfApplicationType != null">
+        scope_of_application_type = #{record.scopeOfApplicationType,jdbcType=INTEGER},
+      </if>
+      <if test="record.scopeOfApplication != null">
+        scope_of_application = #{record.scopeOfApplication,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validityPeriodType != null">
+        validity_period_type = #{record.validityPeriodType,jdbcType=INTEGER},
+      </if>
+      <if test="record.beginTime != null">
+        begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.validPeriodHours != null">
+        valid_period_hours = #{record.validPeriodHours,jdbcType=INTEGER},
+      </if>
+      <if test="record.maximumQuantity != null">
+        maximum_quantity = #{record.maximumQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.maximumPerUser != null">
+        maximum_per_user = #{record.maximumPerUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.quantityIssued != null">
+        quantity_issued = #{record.quantityIssued,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=BIGINT},
+      </if>
+      <if test="record.recordStatus != null">
+        record_status = #{record.recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortPriority != null">
+        sort_priority = #{record.sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateCreated != null">
+        date_created = #{record.dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModified != null">
+        last_modified = #{record.lastModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update coupon_template_entity
+    set id = #{record.id,jdbcType=BIGINT},
+      template_name = #{record.templateName,jdbcType=VARCHAR},
+      coupon_name = #{record.couponName,jdbcType=VARCHAR},
+      cover_image_url = #{record.coverImageUrl,jdbcType=VARCHAR},
+      coupon_type = #{record.couponType,jdbcType=INTEGER},
+      full_limit = #{record.fullLimit,jdbcType=INTEGER},
+      face_value = #{record.faceValue,jdbcType=DECIMAL},
+      scope_of_application_type = #{record.scopeOfApplicationType,jdbcType=INTEGER},
+      scope_of_application = #{record.scopeOfApplication,jdbcType=VARCHAR},
+      validity_period_type = #{record.validityPeriodType,jdbcType=INTEGER},
+      begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      valid_period_hours = #{record.validPeriodHours,jdbcType=INTEGER},
+      maximum_quantity = #{record.maximumQuantity,jdbcType=INTEGER},
+      maximum_per_user = #{record.maximumPerUser,jdbcType=INTEGER},
+      quantity_issued = #{record.quantityIssued,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=BIGINT},
+      record_status = #{record.recordStatus,jdbcType=INTEGER},
+      sort_priority = #{record.sortPriority,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      date_created = #{record.dateCreated,jdbcType=TIMESTAMP},
+      last_modified = #{record.lastModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntity">
+    update coupon_template_entity
+    <set>
+      <if test="templateName != null">
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponName != null">
+        coupon_name = #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImageUrl != null">
+        cover_image_url = #{coverImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null">
+        coupon_type = #{couponType,jdbcType=INTEGER},
+      </if>
+      <if test="fullLimit != null">
+        full_limit = #{fullLimit,jdbcType=INTEGER},
+      </if>
+      <if test="faceValue != null">
+        face_value = #{faceValue,jdbcType=DECIMAL},
+      </if>
+      <if test="scopeOfApplicationType != null">
+        scope_of_application_type = #{scopeOfApplicationType,jdbcType=INTEGER},
+      </if>
+      <if test="scopeOfApplication != null">
+        scope_of_application = #{scopeOfApplication,jdbcType=VARCHAR},
+      </if>
+      <if test="validityPeriodType != null">
+        validity_period_type = #{validityPeriodType,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validPeriodHours != null">
+        valid_period_hours = #{validPeriodHours,jdbcType=INTEGER},
+      </if>
+      <if test="maximumQuantity != null">
+        maximum_quantity = #{maximumQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="maximumPerUser != null">
+        maximum_per_user = #{maximumPerUser,jdbcType=INTEGER},
+      </if>
+      <if test="quantityIssued != null">
+        quantity_issued = #{quantityIssued,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sortPriority != null">
+        sort_priority = #{sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dateCreated != null">
+        date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntity">
+    update coupon_template_entity
+    set template_name = #{templateName,jdbcType=VARCHAR},
+      coupon_name = #{couponName,jdbcType=VARCHAR},
+      cover_image_url = #{coverImageUrl,jdbcType=VARCHAR},
+      coupon_type = #{couponType,jdbcType=INTEGER},
+      full_limit = #{fullLimit,jdbcType=INTEGER},
+      face_value = #{faceValue,jdbcType=DECIMAL},
+      scope_of_application_type = #{scopeOfApplicationType,jdbcType=INTEGER},
+      scope_of_application = #{scopeOfApplication,jdbcType=VARCHAR},
+      validity_period_type = #{validityPeriodType,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      valid_period_hours = #{validPeriodHours,jdbcType=INTEGER},
+      maximum_quantity = #{maximumQuantity,jdbcType=INTEGER},
+      maximum_per_user = #{maximumPerUser,jdbcType=INTEGER},
+      quantity_issued = #{quantityIssued,jdbcType=INTEGER},
+      version = #{version,jdbcType=BIGINT},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      sort_priority = #{sortPriority,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      last_modified = #{lastModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
