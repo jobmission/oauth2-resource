@@ -4,12 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /*
-*
-* https://github.com/eugenp/tutorials/tree/master/spring-security-sso
-*
-*
-* https://projects.spring.io/spring-security-oauth/docs/oauth2.html
-* */
+ *
+ * https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#oauth2resourceserver
+ * */
 @SpringBootApplication
 public class ResourceServerApplication {
 
