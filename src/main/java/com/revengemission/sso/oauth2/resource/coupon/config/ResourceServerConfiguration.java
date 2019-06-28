@@ -51,7 +51,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/webjars/**").permitAll()
                 .mvcMatchers("/swagger-resources/**").permitAll()
                 .mvcMatchers("/coupon/**").hasAnyAuthority("ROLE_SUPER")
-                .mvcMatchers("/product/**").hasAnyAuthority("ROLE_USER")
+                .mvcMatchers("/product/**").hasAnyAuthority("ROLE_USER", "ROLE_SUPER")
                 .anyRequest().authenticated()
                 .and()
                 .oauth2ResourceServer()
