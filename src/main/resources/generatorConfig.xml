@@ -29,7 +29,7 @@
                         password="password_dev!">
             <property name="useSSL" value="false"/>
             <property name="characterEncoding" value="utf8"/>
-            <property name="PublicKeyRetrieval" value="true"/>
+            <property name="allowPublicKeyRetrieval" value="true"/>
             <property name="serverTimezone" value="GMT+8"/>
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
