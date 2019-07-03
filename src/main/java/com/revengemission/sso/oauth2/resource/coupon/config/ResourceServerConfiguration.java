@@ -40,24 +40,24 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .and()
-                .cors()
-                .and()
-                .authorizeRequests()
-                .mvcMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .mvcMatchers("/swagger-ui.html").permitAll()
-                .mvcMatchers("/v2/api-docs").permitAll()
-                .mvcMatchers("/webjars/**").permitAll()
-                .mvcMatchers("/swagger-resources/**").permitAll()
-                .mvcMatchers("/coupon/**").hasAnyAuthority("ROLE_SUPER")
-                .mvcMatchers("/product/**").hasAnyAuthority("ROLE_USER", "ROLE_SUPER")
-                .anyRequest().authenticated()
-                .and()
-                .oauth2ResourceServer()
-                .accessDeniedHandler(customAccessDeniedHandler)
-                .bearerTokenResolver(new CustomTokenResolver())
-                .jwt().jwtAuthenticationConverter(jwtAuthenticationConverter()).decoder(jwtDecoder());
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .cors()
+            .and()
+            .authorizeRequests()
+            .mvcMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .mvcMatchers("/swagger-ui.html").permitAll()
+            .mvcMatchers("/v2/api-docs").permitAll()
+            .mvcMatchers("/webjars/**").permitAll()
+            .mvcMatchers("/swagger-resources/**").permitAll()
+            .mvcMatchers("/coupon/**").hasAnyAuthority("ROLE_SUPER")
+            .mvcMatchers("/product/**").hasAnyAuthority("ROLE_USER", "ROLE_SUPER")
+            .anyRequest().authenticated()
+            .and()
+            .oauth2ResourceServer()
+            .accessDeniedHandler(customAccessDeniedHandler)
+            .bearerTokenResolver(new CustomTokenResolver())
+            .jwt().jwtAuthenticationConverter(jwtAuthenticationConverter()).decoder(jwtDecoder());
     }
 
     Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {

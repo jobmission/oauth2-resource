@@ -3,8 +3,10 @@ package com.revengemission.sso.oauth2.resource.coupon.persistence.mapper;
 import com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntity;
 import com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntityExample;
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface CouponTemplateEntityMapper {
     long countByExample(CouponTemplateEntityExample example);
 
