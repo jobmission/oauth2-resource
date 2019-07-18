@@ -5,6 +5,7 @@ import com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponEn
 import com.revengemission.sso.oauth2.resource.coupon.persistence.entity.CouponTemplateEntity;
 import com.revengemission.sso.oauth2.resource.coupon.persistence.mapper.CouponEntityMapper;
 import com.revengemission.sso.oauth2.resource.coupon.persistence.mapper.CouponTemplateEntityMapper;
+import com.revengemission.sso.oauth2.resource.coupon.service.SequenceService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,6 +27,23 @@ public class ApplicationTests {
 
     @Autowired
     CouponEntityMapper couponEntityMapper;
+
+    @Autowired
+    SequenceService sequenceService;
+
+
+    @Ignore
+    @Test
+    public void sequenceTest() throws InterruptedException {
+
+        for (int i = 0; i < 200; i++) {
+            Runnable r = () -> System.out.println(sequenceService.nextValue("abc"));
+            new Thread(r).start();
+        }
+
+        Thread.sleep(20000);
+
+    }
 
     @Ignore
     @Test

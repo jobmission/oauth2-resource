@@ -22,8 +22,8 @@ public class CustomCorsConfiguration {
         corsConfiguration.addAllowedMethod("GET");
         corsConfiguration.addAllowedMethod("POST");
         corsConfiguration.addAllowedMethod("OPTIONS");
-        //corsConfiguration.addExposedHeader("head1");
-        //corsConfiguration.addExposedHeader("Location");
+        ///corsConfiguration.addExposedHeader("head1");
+        ///corsConfiguration.addExposedHeader("Location");
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(urlBasedCorsConfigurationSource);

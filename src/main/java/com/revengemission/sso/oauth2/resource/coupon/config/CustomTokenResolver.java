@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 public class CustomTokenResolver implements BearerTokenResolver {
     private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+)=*$");
 
+
+    @Override
     public String resolve(HttpServletRequest request) {
         String access_token = resolveFromAuthorizationHeader(request);
         if (StringUtils.isEmpty(access_token)) {
@@ -58,7 +60,8 @@ public class CustomTokenResolver implements BearerTokenResolver {
     protected String resolveFromCookie(HttpServletRequest request) {
 
         String cookieToken = null;
-        Cookie[] cookies = request.getCookies();//根据请求数据，找到cookie数组
+        //根据请求数据，找到cookie数组
+        Cookie[] cookies = request.getCookies();
 
         if (null != cookies && cookies.length > 0) {
             int foundTimes = 0;

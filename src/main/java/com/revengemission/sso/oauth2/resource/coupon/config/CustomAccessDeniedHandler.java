@@ -21,14 +21,14 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request,
                        HttpServletResponse response, AccessDeniedException e)
-            throws IOException, ServletException {
+        throws IOException, ServletException {
 
-        String toUrl = "http://" + request.getServerName() //服务器地址
-                + ":"
-                + request.getServerPort()           //端口号
-                + request.getContextPath()      //项目名称
-                + request.getServletPath()      //请求页面或其他地址
-                + (request.getQueryString() == null ? "" : ("?" + request.getQueryString())); //参数
+        String toUrl = "http://" + request.getServerName()
+            + ":"
+            + request.getServerPort()
+            + request.getContextPath()
+            + request.getServletPath()
+            + (request.getQueryString() == null ? "" : ("?" + request.getQueryString()));
         response.setHeader("Content-Type", "application/json;charset=UTF-8");
         try {
             Map<String, Object> responseMessage = new HashMap<>();
@@ -37,7 +37,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             responseMessage.put("path", toUrl);
             ObjectMapper objectMapper = new ObjectMapper();
             JsonGenerator jsonGenerator = objectMapper.getFactory().createGenerator(response.getOutputStream(),
-                    JsonEncoding.UTF8);
+                JsonEncoding.UTF8);
             objectMapper.writeValue(jsonGenerator, responseMessage);
         } catch (Exception ex) {
             throw new HttpMessageNotWritableException("Could not write JSON: " + ex.getMessage(), ex);

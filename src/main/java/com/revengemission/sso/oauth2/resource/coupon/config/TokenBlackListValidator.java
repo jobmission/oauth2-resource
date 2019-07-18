@@ -5,9 +5,13 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
 
+/**
+ * 严重是否在黑名单等
+ */
 public class TokenBlackListValidator implements OAuth2TokenValidator<Jwt> {
     OAuth2Error error = new OAuth2Error("invalid_token", "The required audience is invalid", null);
 
+    @Override
     public OAuth2TokenValidatorResult validate(Jwt jwt) {
         if (checkTokenValid(jwt.getTokenValue())) {
             return OAuth2TokenValidatorResult.success();
@@ -23,7 +27,7 @@ public class TokenBlackListValidator implements OAuth2TokenValidator<Jwt> {
      * @return
      */
     boolean checkTokenValid(String jwtToken) {
-        System.out.println("checking token is valid...");
+        System.out.println("checking token 【" + jwtToken + "】 is valid...");
         return true;
     }
 }

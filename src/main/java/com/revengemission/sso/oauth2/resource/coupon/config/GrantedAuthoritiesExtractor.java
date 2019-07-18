@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
  */
 public class GrantedAuthoritiesExtractor extends JwtAuthenticationConverter {
     
+    @Override
     @SuppressWarnings("unchecked")
     protected Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
         Collection<String> authorities = (Collection<String>) jwt.getClaims().get("authorities");

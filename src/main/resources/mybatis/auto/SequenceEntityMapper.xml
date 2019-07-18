@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.revengemission.sso.oauth2.resource.coupon.persistence.mapper.SequenceEntityMapper">
+  <resultMap id="BaseResultMap" type="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.SequenceEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sequence_name" jdbcType="VARCHAR" property="sequenceName" />
+    <result column="current_value" jdbcType="BIGINT" property="currentValue" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="record_status" jdbcType="INTEGER" property="recordStatus" />
+    <result column="sort_priority" jdbcType="INTEGER" property="sortPriority" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="date_created" jdbcType="TIMESTAMP" property="dateCreated" />
+    <result column="last_modified" jdbcType="TIMESTAMP" property="lastModified" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, sequence_name, current_value, version, record_status, sort_priority, remark, 
+    date_created, last_modified
+  </sql>
+  <select id="selectByExample" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.SequenceEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sequence_entity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sequence_entity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sequence_entity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.SequenceEntityExample">
+    delete from sequence_entity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.SequenceEntity">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sequence_entity (sequence_name, current_value, version, 
+      record_status, sort_priority, remark, 
+      date_created, last_modified)
+    values (#{sequenceName,jdbcType=VARCHAR}, #{currentValue,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, 
+      #{recordStatus,jdbcType=INTEGER}, #{sortPriority,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{dateCreated,jdbcType=TIMESTAMP}, #{lastModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.SequenceEntity">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sequence_entity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sequenceName != null">
+        sequence_name,
+      </if>
+      <if test="currentValue != null">
+        current_value,
+      </if>
+      version,
+      record_status,
+      sort_priority,
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="dateCreated != null">
+        date_created,
+      </if>
+      <if test="lastModified != null">
+        last_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sequenceName != null">
+        #{sequenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentValue != null">
+        #{currentValue,jdbcType=BIGINT},
+      </if>
+      #{version,jdbcType=INTEGER},
+      #{recordStatus,jdbcType=INTEGER},
+      #{sortPriority,jdbcType=INTEGER},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dateCreated != null">
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.SequenceEntityExample" resultType="java.lang.Long">
+    select count(*) from sequence_entity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sequence_entity
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.sequenceName != null">
+        sequence_name = #{record.sequenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentValue != null">
+        current_value = #{record.currentValue,jdbcType=BIGINT},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.recordStatus != null">
+        record_status = #{record.recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortPriority != null">
+        sort_priority = #{record.sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateCreated != null">
+        date_created = #{record.dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModified != null">
+        last_modified = #{record.lastModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sequence_entity
+    set id = #{record.id,jdbcType=BIGINT},
+      sequence_name = #{record.sequenceName,jdbcType=VARCHAR},
+      current_value = #{record.currentValue,jdbcType=BIGINT},
+      version = #{record.version,jdbcType=INTEGER},
+      record_status = #{record.recordStatus,jdbcType=INTEGER},
+      sort_priority = #{record.sortPriority,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      date_created = #{record.dateCreated,jdbcType=TIMESTAMP},
+      last_modified = #{record.lastModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.SequenceEntity">
+    update sequence_entity
+    <set>
+      <if test="sequenceName != null">
+        sequence_name = #{sequenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentValue != null">
+        current_value = #{currentValue,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sortPriority != null">
+        sort_priority = #{sortPriority,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dateCreated != null">
+        date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModified != null">
+        last_modified = #{lastModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.revengemission.sso.oauth2.resource.coupon.persistence.entity.SequenceEntity">
+    update sequence_entity
+    set sequence_name = #{sequenceName,jdbcType=VARCHAR},
+      current_value = #{currentValue,jdbcType=BIGINT},
+      version = #{version,jdbcType=INTEGER},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      sort_priority = #{sortPriority,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      date_created = #{dateCreated,jdbcType=TIMESTAMP},
+      last_modified = #{lastModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

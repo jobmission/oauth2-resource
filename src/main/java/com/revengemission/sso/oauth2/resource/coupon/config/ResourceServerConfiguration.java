@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoderJwkSupport;
 
-/*
+/**
  * Resource Server (default) will attempt to coerce these scopes into a list of granted authorities,
  * prefixing each scope with the string "SCOPE_".
  *
