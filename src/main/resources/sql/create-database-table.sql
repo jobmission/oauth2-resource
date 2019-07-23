@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS coupon_entity
         ON UPDATE CURRENT_TIMESTAMP
 );
 
+# 序列号
 CREATE TABLE IF NOT EXISTS sequence_entity
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -72,4 +73,19 @@ CREATE TABLE IF NOT EXISTS sequence_entity
     date_created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT unique_sequence_name UNIQUE (sequence_name)
+);
+
+# 资源表-角色表
+CREATE TABLE IF NOT EXISTS resource_entity
+(
+    id            BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    url           VARCHAR(50)                       NOT NULL COMMENT 'url资源',
+    roles         VARCHAR(50)                       NOT NULL COMMENT '该资源此类角色可访问',
+    version       INT       DEFAULT 0               NOT NULL,
+    record_status INT       DEFAULT 0               NOT NULL,
+    sort_priority INT       DEFAULT 0,
+    remark        VARCHAR(255),
+    date_created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT unique_url UNIQUE (url)
 );

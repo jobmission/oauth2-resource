@@ -18,8 +18,7 @@ public class TestController {
 
     @GetMapping("/coupon/list")
     public Map<String, Object> couponList(JwtAuthenticationToken authenticationToken) {
-        System.out.println(authenticationToken);
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(16);
         result.put("status", 1);
         result.put("data", couponService.list(authenticationToken.getToken().getSubject()));
         return result;
@@ -27,7 +26,15 @@ public class TestController {
 
     @GetMapping("/product/list")
     public Map<String, Object> productList(JwtAuthenticationToken authenticationToken) {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(16);
+        result.put("status", 1);
+        result.put("data", new ArrayList<>());
+        return result;
+    }
+
+    @GetMapping("/order/list")
+    public Map<String, Object> orderList(JwtAuthenticationToken authenticationToken) {
+        Map<String, Object> result = new HashMap<>(16);
         result.put("status", 1);
         result.put("data", new ArrayList<>());
         return result;
