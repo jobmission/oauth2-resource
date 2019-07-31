@@ -12,6 +12,13 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * 自定义 AccessDecisionManager，decide 中应该使用 AccessDecisionVoter
+ * 默认 AccessDecisionManager 为 AffirmativeBased （一票通过）
+ * web 类型项目中默认 AccessDecisionVoter 为 WebExpressionVoter
+ * 其他类型项目中默认 AccessDecisionVoter 为 RoleVoter 和 AuthenticatedVoter
+ */
+@Deprecated
 public class MyAccessDecisionManager implements AccessDecisionManager {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -42,6 +49,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                 }
             }
         }
+        //没有处理authenticated、permitAll、denyAll、fullyAuthenticated
         throw new AccessDeniedException("permission denied");
     }
 

@@ -30,13 +30,14 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
     private HashMap<String, Collection<ConfigAttribute>> resourceMap = new HashMap<>();
 
     /**
-     * 加载资源，初始化资源变量
+     * 加载资源-角色关系
+     * 因无法使用ConfigAttribute的WebExpressionConfigAttribute实现，因此无法使用WebExpressionVoter投票，所以需要在AccessDecisionManager决策管理器中添加RoleVoter投票
      */
     public void loadResourceDefine() {
 
         List<ResourceEntity> resourceEntityList = resourceEntityMapper.selectByExample(new ResourceEntityExample());
         if (resourceEntityList == null || resourceEntityList.size() == 0) {
-            log.error("没有配置资源权限！");
+            log.error("没有查到资源权限，请先配置resource_entity！");
         } else {
             resourceMap.clear();
             Collection<ConfigAttribute> array;

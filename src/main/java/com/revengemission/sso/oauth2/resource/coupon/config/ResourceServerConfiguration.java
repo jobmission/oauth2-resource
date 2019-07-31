@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,7 +27,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
  * To use own custom attribute, may need to adapt the attribute or a composition of attributes into internalized authorities.
  * implements Converter<Jwt, AbstractAuthenticationToken>,or extends JwtAuthenticationConverter;
  * 默认验证JWT中scope,如果使用JWT中其他claim字段, 需要覆盖jwtAuthenticationConverter，参照注释
- * https://docs.spring.io/spring-security/site/docs/5.1.4.RELEASE/reference/htmlsingle/#oauth2resourceserver
+ * https://docs.spring.io/spring-security/site/docs/5.1.5.RELEASE/reference/htmlsingle/#oauth2resourceserver
  */
 @Configuration
 public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
@@ -46,6 +48,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
             .and()
             .cors()
             .and()
+            .csrf().disable()
             .authorizeRequests()
             .mvcMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //            .mvcMatchers("/swagger-ui.html").permitAll()
@@ -64,11 +67,18 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
+    /**
+     * 默认 AccessDecisionManager 为 AffirmativeBased （一票通过）
+     * web 类型项目中默认 AccessDecisionVoter 为 WebExpressionVoter
+     * 其他类型项目中默认 AccessDecisionVoter 为 RoleVoter 和 AuthenticatedVoter
+     */
     private class MyObjectPostProcessor implements ObjectPostProcessor<FilterSecurityInterceptor> {
         @Override
         public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
             fsi.setSecurityMetadataSource(new MyFilterInvocationSecurityMetadataSource(fsi.getSecurityMetadataSource(), resourceEntityMapper));
-            fsi.setAccessDecisionManager(new MyAccessDecisionManager());
+            AffirmativeBased affirmativeBased = (AffirmativeBased) fsi.getAccessDecisionManager();
+            affirmativeBased.getDecisionVoters().add(0, new RoleVoter());
+            //affirmativeBased.getDecisionVoters().add(new MyAccessDecisionVoter());
             return fsi;
         }
     }

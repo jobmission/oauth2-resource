@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 /**
- * 严重是否在黑名单等
+ * 验证是否在黑名单等
  */
 public class TokenBlackListValidator implements OAuth2TokenValidator<Jwt> {
     private Logger log = LoggerFactory.getLogger(this.getClass());
