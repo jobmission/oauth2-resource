@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * 自定义 AccessDecisionManager，decide 中应该使用 AccessDecisionVoter
+ * 自定义 AccessDecisionManager，decide 中应该使用 AccessDecisionVoter，可参照AffirmativeBased的实现方式
  * 默认 AccessDecisionManager 为 AffirmativeBased （一票通过）
  * web 类型项目中默认 AccessDecisionVoter 为 WebExpressionVoter
  * 其他类型项目中默认 AccessDecisionVoter 为 RoleVoter 和 AuthenticatedVoter

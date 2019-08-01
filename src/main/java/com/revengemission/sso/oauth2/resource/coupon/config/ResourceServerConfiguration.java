@@ -77,8 +77,8 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
         public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
             fsi.setSecurityMetadataSource(new MyFilterInvocationSecurityMetadataSource(fsi.getSecurityMetadataSource(), resourceEntityMapper));
             AffirmativeBased affirmativeBased = (AffirmativeBased) fsi.getAccessDecisionManager();
+            affirmativeBased.getDecisionVoters().add(0, new MyAccessDecisionVoter());
             affirmativeBased.getDecisionVoters().add(0, new RoleVoter());
-            //affirmativeBased.getDecisionVoters().add(new MyAccessDecisionVoter());
             return fsi;
         }
     }
