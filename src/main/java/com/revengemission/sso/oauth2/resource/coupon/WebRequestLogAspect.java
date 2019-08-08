@@ -50,7 +50,8 @@ public class WebRequestLogAspect {
                         parametersString = JsonUtil.multiValueMapToJsonString(parameters);
                     }
                     MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-                    Method method = signature.getMethod(); //获取被拦截的方法
+                    //获取被拦截的方法
+                    Method method = signature.getMethod();
                     Object object = getAnnotatedParameterValueRequestBody(method, joinPoint.getArgs());
                     if (object != null) {
                         requestBody = JsonUtil.objectToJsonString(object);
@@ -116,10 +117,15 @@ public class WebRequestLogAspect {
         return null;
     }
 
-    //get request headers
+    /**
+     * get request headers
+     *
+     * @param request
+     * @return
+     */
     private Map<String, String> getHeadersInfo(HttpServletRequest request) {
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<String, String>(16);
 
         Enumeration headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {

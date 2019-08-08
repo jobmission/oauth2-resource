@@ -44,8 +44,8 @@ public class ClientIpUtils {
     public static String getServerHost(HttpServletRequest request) {
         String scheme = request.getScheme();
         String serverName = request.getServerName();
-        Integer serverPort = request.getServerPort();
-        if (serverPort != null && (serverPort == 80 || serverPort == 443)) {
+        int serverPort = request.getServerPort();
+        if (serverPort == 80 || serverPort == 443) {
             return scheme + "://" + serverName;
         } else {
             return scheme + "://" + serverName + ":" + serverPort;
@@ -54,7 +54,6 @@ public class ClientIpUtils {
 
     public static String getFullRequestUrl(HttpServletRequest request) {
         String host = getServerHost(request);
-
 
         return host + request.getContextPath()
             + request.getServletPath()

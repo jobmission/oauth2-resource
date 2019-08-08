@@ -12,8 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CustomTokenResolver implements BearerTokenResolver {
-    private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+)=*$");
-
+    private static final Pattern AUTHORIZATION_PATTERN = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+)=*$");
 
     @Override
     public String resolve(HttpServletRequest request) {
@@ -31,7 +30,7 @@ public class CustomTokenResolver implements BearerTokenResolver {
     private static String resolveFromAuthorizationHeader(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
         if (StringUtils.hasText(authorization) && authorization.startsWith("Bearer")) {
-            Matcher matcher = authorizationPattern.matcher(authorization);
+            Matcher matcher = AUTHORIZATION_PATTERN.matcher(authorization);
             if (!matcher.matches()) {
                 BearerTokenError error = new BearerTokenError("invalid_token", HttpStatus.UNAUTHORIZED, "Bearer token is malformed", "https://tools.ietf.org/html/rfc6750#section-3.1");
                 throw new OAuth2AuthenticationException(error);
@@ -66,7 +65,7 @@ public class CustomTokenResolver implements BearerTokenResolver {
         if (null != cookies && cookies.length > 0) {
             int foundTimes = 0;
             for (Cookie cookie : cookies) {
-                if (null != cookie.getName() && cookie.getName().trim().equalsIgnoreCase("access_token")) {
+                if (null != cookie.getName() && "access_token".equalsIgnoreCase(cookie.getName().trim())) {
                     cookieToken = cookie.getValue().trim();
                     foundTimes++;
                 }
