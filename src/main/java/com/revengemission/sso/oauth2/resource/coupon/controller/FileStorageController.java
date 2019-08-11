@@ -107,6 +107,15 @@ public class FileStorageController {
         if (files != null && files.size() > 0) {
             files.forEach(multipartFile -> {
                 String fileType = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
+				if (fileType == null) {
+                    if (StringUtils.endsWithIgnoreCase("image/png", multipartFile.getContentType())) {
+                        fileType = "png";
+                    } else if (StringUtils.endsWithIgnoreCase("image/jpg", multipartFile.getContentType())) {
+                        fileType = "jpg";
+                    } else if (StringUtils.endsWithIgnoreCase("image/jpeg", multipartFile.getContentType())) {
+                        fileType = "jpg";
+                    }
+                }
                 if (whitelist.contains(StringUtils.trimAllWhitespace(fileType).toLowerCase())) {
                     try {
                         String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile);
@@ -130,6 +139,15 @@ public class FileStorageController {
         Map<String, Object> result = new HashMap<>(16);
         List<String> fileNames = new LinkedList<>();
         String fileType = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
+		if (fileType == null) {
+			if (StringUtils.endsWithIgnoreCase("image/png", multipartFile.getContentType())) {
+				fileType = "png";
+			} else if (StringUtils.endsWithIgnoreCase("image/jpg", multipartFile.getContentType())) {
+				fileType = "jpg";
+			} else if (StringUtils.endsWithIgnoreCase("image/jpeg", multipartFile.getContentType())) {
+				fileType = "jpg";
+			}
+		}
         if (whitelist.contains(StringUtils.trimAllWhitespace(fileType).toLowerCase())) {
             try {
                 String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile);
