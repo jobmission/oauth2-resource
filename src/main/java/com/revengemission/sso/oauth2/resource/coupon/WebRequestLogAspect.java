@@ -17,7 +17,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,9 +32,8 @@ public class WebRequestLogAspect {
     }
 
     @Before("wsLog()")
-    public void doBefore(JoinPoint joinPoint) throws Throwable {
+    public void doBefore(JoinPoint joinPoint) {
         // 接收到请求，记录请求内容
-
         if (log.isInfoEnabled()) {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             if (attributes != null) {
@@ -59,6 +57,9 @@ public class WebRequestLogAspect {
                     StringBuffer stringBuffer = new StringBuffer();
                     stringBuffer.append("\nRequest from ");
                     stringBuffer.append(request.getRemoteHost());
+                    stringBuffer.append(";\n");
+                    stringBuffer.append("User-Agent = ");
+                    stringBuffer.append(request.getHeader("User-Agent"));
                     stringBuffer.append(";\n");
                     stringBuffer.append("uri = ");
                     stringBuffer.append(request.getRequestURL().toString());
@@ -87,7 +88,7 @@ public class WebRequestLogAspect {
     }
 
     @AfterReturning(returning = "ret", pointcut = "wsLog()")
-    public void doAfterReturning(Object ret) throws Throwable {
+    public void doAfterReturning(Object ret) {
         // 处理完请求，返回内容
         if (log.isInfoEnabled()) {
             try {
@@ -102,12 +103,12 @@ public class WebRequestLogAspect {
 
     private Object getAnnotatedParameterValueRequestBody(Method method, Object[] args) {
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-        Parameter[] parameters = method.getParameters();
+///        Parameter[] parameters = method.getParameters();
 
         int i = 0;
         for (Annotation[] annotations : parameterAnnotations) {
             Object arg = args[i];
-            String name = parameters[i++].getDeclaringExecutable().getName();
+///            String name = parameters[i++].getDeclaringExecutable().getName();
             for (Annotation annotation : annotations) {
                 if (annotation instanceof RequestBody) {
                     return arg;
@@ -125,7 +126,7 @@ public class WebRequestLogAspect {
      */
     private Map<String, String> getHeadersInfo(HttpServletRequest request) {
 
-        Map<String, String> map = new HashMap<String, String>(16);
+        Map<String, String> map = new HashMap<>(16);
 
         Enumeration headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
