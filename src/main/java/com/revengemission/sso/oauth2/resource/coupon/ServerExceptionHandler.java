@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileNotFoundException;
+import java.nio.file.NoSuchFileException;
 import java.security.AccessControlException;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,6 +52,23 @@ public class ServerExceptionHandler {
         responseResult.put("error", httpStatus.getReasonPhrase());
         responseResult.put("timestamp", new Date());
         responseResult.put("message", ex.getMessage());
+        responseResult.put("path", request.getRequestURL());
+        return new ResponseEntity<>(responseResult, headers, httpStatus);
+    }
+
+    @ExceptionHandler({
+        NoSuchFileException.class, FileNotFoundException.class
+    })
+    @ResponseBody
+    ResponseEntity<Object> handleNoSuchFileException(Exception ex, HttpServletRequest request) {
+
+        HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+        logRequest(ex, httpStatus, request);
+        HttpHeaders headers = new HttpHeaders();
+        Map<String, Object> responseResult = new HashMap<>(16);
+        responseResult.put("status", httpStatus.value());
+        responseResult.put("error", httpStatus.getReasonPhrase());
+        responseResult.put("timestamp", new Date());
         responseResult.put("path", request.getRequestURL());
         return new ResponseEntity<>(responseResult, headers, httpStatus);
     }

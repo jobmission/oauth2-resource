@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -90,15 +91,23 @@ public class WebRequestLogAspect {
     @AfterReturning(returning = "ret", pointcut = "wsLog()")
     public void doAfterReturning(Object ret) {
         // 处理完请求，返回内容
-        if (log.isInfoEnabled()) {
-            try {
-                log.info("Response from server : \n" + JsonUtil.objectToJsonString(ret));
-            } catch (Exception e) {
-                log.info("log http response Exception:\n ", e);
+        if ((ret instanceof ResponseEntity)) {
+            if (log.isInfoEnabled()) {
+                try {
+                    log.info("Response from server : " + ((ResponseEntity) ret).getStatusCode().value());
+                } catch (Exception e) {
+                    log.info("log http response Exception", e);
+                }
+            }
+        } else {
+            if (log.isInfoEnabled()) {
+                try {
+                    log.info("Response from server : \n" + JsonUtil.objectToJsonString(ret));
+                } catch (Exception e) {
+                    log.info("log http response Exception: ", e);
+                }
             }
         }
-
-
     }
 
     private Object getAnnotatedParameterValueRequestBody(Method method, Object[] args) {
