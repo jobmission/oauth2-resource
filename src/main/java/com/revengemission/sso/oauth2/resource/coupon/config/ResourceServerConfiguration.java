@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtTimestampValidator;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoderJwkSupport;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
@@ -92,7 +93,8 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
     JwtDecoder jwtDecoder() {
         NimbusJwtDecoderJwkSupport jwtDecoder = new NimbusJwtDecoderJwkSupport(oAuth2ResourceServerProperties.getJwt().getJwkSetUri());
         OAuth2TokenValidator<Jwt> tokenBlackListValidator = new TokenBlackListValidator();
-        OAuth2TokenValidator<Jwt> delegatingOAuth2TokenValidator = new DelegatingOAuth2TokenValidator<>(tokenBlackListValidator);
+        JwtTimestampValidator timestampValidator = new JwtTimestampValidator();
+        OAuth2TokenValidator<Jwt> delegatingOAuth2TokenValidator = new DelegatingOAuth2TokenValidator<>(tokenBlackListValidator, timestampValidator);
         jwtDecoder.setJwtValidator(delegatingOAuth2TokenValidator);
         return jwtDecoder;
     }
