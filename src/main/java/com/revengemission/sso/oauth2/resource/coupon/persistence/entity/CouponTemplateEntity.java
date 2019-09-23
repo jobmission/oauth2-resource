@@ -2,7 +2,7 @@ package com.revengemission.sso.oauth2.resource.coupon.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class CouponTemplateEntity implements Serializable {
     private Long id;
@@ -25,9 +25,9 @@ public class CouponTemplateEntity implements Serializable {
 
     private Integer validityPeriodType;
 
-    private Date beginTime;
+    private LocalDateTime beginTime;
 
-    private Date endTime;
+    private LocalDateTime endTime;
 
     private Integer validPeriodHours;
 
@@ -45,9 +45,9 @@ public class CouponTemplateEntity implements Serializable {
 
     private String remark;
 
-    private Date dateCreated;
+    private LocalDateTime dateCreated;
 
-    private Date lastModified;
+    private LocalDateTime lastModified;
 
     private static final long serialVersionUID = 1L;
 
@@ -131,19 +131,19 @@ public class CouponTemplateEntity implements Serializable {
         this.validityPeriodType = validityPeriodType;
     }
 
-    public Date getBeginTime() {
+    public LocalDateTime getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(LocalDateTime beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -211,19 +211,19 @@ public class CouponTemplateEntity implements Serializable {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Date getDateCreated() {
+    public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getLastModified() {
+    public LocalDateTime getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
     }
 

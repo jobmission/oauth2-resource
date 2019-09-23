@@ -1,7 +1,7 @@
 package com.revengemission.sso.oauth2.resource.coupon.persistence.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class SequenceEntity implements Serializable {
     private Long id;
@@ -18,9 +18,9 @@ public class SequenceEntity implements Serializable {
 
     private String remark;
 
-    private Date dateCreated;
+    private LocalDateTime dateCreated;
 
-    private Date lastModified;
+    private LocalDateTime lastModified;
 
     private static final long serialVersionUID = 1L;
 
@@ -80,19 +80,19 @@ public class SequenceEntity implements Serializable {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Date getDateCreated() {
+    public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getLastModified() {
+    public LocalDateTime getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
     }
 

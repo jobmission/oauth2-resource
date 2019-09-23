@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 
@@ -67,7 +67,7 @@ public class SequenceServiceImpl implements SequenceService {
             SequenceEntity entity = entityList.get(0);
             begin = entity.getCurrentValue();
             entity.setCurrentValue(entity.getCurrentValue() + count);
-            entity.setLastModified(new Date());
+            entity.setLastModified(LocalDateTime.now());
             entityMapper.updateByPrimaryKey(entity);
         }
         long[] result = new long[count];

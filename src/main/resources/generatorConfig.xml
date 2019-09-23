@@ -29,14 +29,17 @@
                         userId="coupon"
                         password="password_dev!">
             <property name="useSSL" value="false"/>
+            <property name="useUnicode" value="true"/>
             <property name="characterEncoding" value="utf8"/>
             <property name="allowPublicKeyRetrieval" value="true"/>
             <property name="serverTimezone" value="GMT+8"/>
+            <!--            MYSQL 8.0 ,非预期结果      -->
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
+            <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
         <javaModelGenerator targetPackage="com.revengemission.sso.oauth2.resource.coupon.persistence.entity"

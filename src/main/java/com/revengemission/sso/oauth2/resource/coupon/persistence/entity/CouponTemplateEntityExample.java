@@ -1,8 +1,8 @@
 package com.revengemission.sso.oauth2.resource.coupon.persistence.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CouponTemplateEntityExample {
@@ -756,52 +756,52 @@ public class CouponTemplateEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeEqualTo(Date value) {
+        public Criteria andBeginTimeEqualTo(LocalDateTime value) {
             addCriterion("begin_time =", value, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeNotEqualTo(Date value) {
+        public Criteria andBeginTimeNotEqualTo(LocalDateTime value) {
             addCriterion("begin_time <>", value, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeGreaterThan(Date value) {
+        public Criteria andBeginTimeGreaterThan(LocalDateTime value) {
             addCriterion("begin_time >", value, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andBeginTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("begin_time >=", value, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeLessThan(Date value) {
+        public Criteria andBeginTimeLessThan(LocalDateTime value) {
             addCriterion("begin_time <", value, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeLessThanOrEqualTo(Date value) {
+        public Criteria andBeginTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("begin_time <=", value, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeIn(List<Date> values) {
+        public Criteria andBeginTimeIn(List<LocalDateTime> values) {
             addCriterion("begin_time in", values, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeNotIn(List<Date> values) {
+        public Criteria andBeginTimeNotIn(List<LocalDateTime> values) {
             addCriterion("begin_time not in", values, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeBetween(Date value1, Date value2) {
+        public Criteria andBeginTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("begin_time between", value1, value2, "beginTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeginTimeNotBetween(Date value1, Date value2) {
+        public Criteria andBeginTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("begin_time not between", value1, value2, "beginTime");
             return (Criteria) this;
         }
@@ -816,52 +816,52 @@ public class CouponTemplateEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeEqualTo(Date value) {
+        public Criteria andEndTimeEqualTo(LocalDateTime value) {
             addCriterion("end_time =", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotEqualTo(Date value) {
+        public Criteria andEndTimeNotEqualTo(LocalDateTime value) {
             addCriterion("end_time <>", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeGreaterThan(Date value) {
+        public Criteria andEndTimeGreaterThan(LocalDateTime value) {
             addCriterion("end_time >", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andEndTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("end_time >=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLessThan(Date value) {
+        public Criteria andEndTimeLessThan(LocalDateTime value) {
             addCriterion("end_time <", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLessThanOrEqualTo(Date value) {
+        public Criteria andEndTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("end_time <=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeIn(List<Date> values) {
+        public Criteria andEndTimeIn(List<LocalDateTime> values) {
             addCriterion("end_time in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotIn(List<Date> values) {
+        public Criteria andEndTimeNotIn(List<LocalDateTime> values) {
             addCriterion("end_time not in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeBetween(Date value1, Date value2) {
+        public Criteria andEndTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("end_time between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotBetween(Date value1, Date value2) {
+        public Criteria andEndTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("end_time not between", value1, value2, "endTime");
             return (Criteria) this;
         }
@@ -1366,52 +1366,52 @@ public class CouponTemplateEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedEqualTo(Date value) {
+        public Criteria andDateCreatedEqualTo(LocalDateTime value) {
             addCriterion("date_created =", value, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedNotEqualTo(Date value) {
+        public Criteria andDateCreatedNotEqualTo(LocalDateTime value) {
             addCriterion("date_created <>", value, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedGreaterThan(Date value) {
+        public Criteria andDateCreatedGreaterThan(LocalDateTime value) {
             addCriterion("date_created >", value, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedGreaterThanOrEqualTo(Date value) {
+        public Criteria andDateCreatedGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("date_created >=", value, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedLessThan(Date value) {
+        public Criteria andDateCreatedLessThan(LocalDateTime value) {
             addCriterion("date_created <", value, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedLessThanOrEqualTo(Date value) {
+        public Criteria andDateCreatedLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("date_created <=", value, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedIn(List<Date> values) {
+        public Criteria andDateCreatedIn(List<LocalDateTime> values) {
             addCriterion("date_created in", values, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedNotIn(List<Date> values) {
+        public Criteria andDateCreatedNotIn(List<LocalDateTime> values) {
             addCriterion("date_created not in", values, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedBetween(Date value1, Date value2) {
+        public Criteria andDateCreatedBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("date_created between", value1, value2, "dateCreated");
             return (Criteria) this;
         }
 
-        public Criteria andDateCreatedNotBetween(Date value1, Date value2) {
+        public Criteria andDateCreatedNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("date_created not between", value1, value2, "dateCreated");
             return (Criteria) this;
         }
@@ -1426,52 +1426,52 @@ public class CouponTemplateEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedEqualTo(Date value) {
+        public Criteria andLastModifiedEqualTo(LocalDateTime value) {
             addCriterion("last_modified =", value, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedNotEqualTo(Date value) {
+        public Criteria andLastModifiedNotEqualTo(LocalDateTime value) {
             addCriterion("last_modified <>", value, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedGreaterThan(Date value) {
+        public Criteria andLastModifiedGreaterThan(LocalDateTime value) {
             addCriterion("last_modified >", value, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedGreaterThanOrEqualTo(Date value) {
+        public Criteria andLastModifiedGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("last_modified >=", value, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedLessThan(Date value) {
+        public Criteria andLastModifiedLessThan(LocalDateTime value) {
             addCriterion("last_modified <", value, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedLessThanOrEqualTo(Date value) {
+        public Criteria andLastModifiedLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("last_modified <=", value, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedIn(List<Date> values) {
+        public Criteria andLastModifiedIn(List<LocalDateTime> values) {
             addCriterion("last_modified in", values, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedNotIn(List<Date> values) {
+        public Criteria andLastModifiedNotIn(List<LocalDateTime> values) {
             addCriterion("last_modified not in", values, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedBetween(Date value1, Date value2) {
+        public Criteria andLastModifiedBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("last_modified between", value1, value2, "lastModified");
             return (Criteria) this;
         }
 
-        public Criteria andLastModifiedNotBetween(Date value1, Date value2) {
+        public Criteria andLastModifiedNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("last_modified not between", value1, value2, "lastModified");
             return (Criteria) this;
         }

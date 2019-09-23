@@ -15,8 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -74,7 +73,7 @@ public class ApplicationTests {
             couponTemplateEntity1.setMaximumQuantity(1000);
             couponTemplateEntity1.setMaximumPerUser(1);
             couponTemplateEntity1.setQuantityIssued(0);
-            couponTemplateEntity1.setDateCreated(new Date());
+            couponTemplateEntity1.setDateCreated(LocalDateTime.now());
             couponTemplateEntityMapper.insert(couponTemplateEntity1);
             return couponTemplateEntity1.getId();
         } else {
@@ -91,7 +90,7 @@ public class ApplicationTests {
             couponTemplateEntity2.setMaximumQuantity(1000);
             couponTemplateEntity2.setMaximumPerUser(1);
             couponTemplateEntity2.setQuantityIssued(0);
-            couponTemplateEntity2.setDateCreated(new Date());
+            couponTemplateEntity2.setDateCreated(LocalDateTime.now());
             couponTemplateEntityMapper.insert(couponTemplateEntity2);
             return couponTemplateEntity2.getId();
         }
@@ -115,12 +114,10 @@ public class ApplicationTests {
             couponEntity.setBeginTime(couponTemplateEntity.getBeginTime());
             couponEntity.setEndTime(couponTemplateEntity.getEndTime());
         } else {
-            Calendar calendar = Calendar.getInstance();
-            couponEntity.setBeginTime(calendar.getTime());
-            calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + couponTemplateEntity.getValidPeriodHours());
-            couponEntity.setEndTime(calendar.getTime());
+            couponEntity.setBeginTime(LocalDateTime.now());
+            couponEntity.setEndTime(LocalDateTime.now().plusHours(couponTemplateEntity.getValidPeriodHours()));
         }
-        couponEntity.setDateCreated(new Date());
+        couponEntity.setDateCreated(LocalDateTime.now());
         couponEntityMapper.insert(couponEntity);
         return couponEntity.getId();
 
