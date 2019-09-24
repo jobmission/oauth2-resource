@@ -3,7 +3,7 @@ package com.revengemission.sso.oauth2.resource.coupon.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CouponTemplate extends BaseDomain {
@@ -16,8 +16,8 @@ public class CouponTemplate extends BaseDomain {
     private Integer scopeOfApplicationType;
     private String scopeOfApplication;
     private Integer validityPeriodType;
-    private Date beginTime;
-    private Date endTime;
+    private LocalDateTime beginTime;
+    private LocalDateTime endTime;
     private Integer validPeriodHours;
     private Integer maximumQuantity;
     private Integer maximumPerUser;
@@ -95,19 +95,19 @@ public class CouponTemplate extends BaseDomain {
         this.validityPeriodType = validityPeriodType;
     }
 
-    public Date getBeginTime() {
+    public LocalDateTime getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(LocalDateTime beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

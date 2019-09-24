@@ -4,7 +4,7 @@ package com.revengemission.sso.oauth2.resource.coupon.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseDomain implements Serializable {
@@ -13,11 +13,11 @@ public class BaseDomain implements Serializable {
     /**
      * 创建时间
      */
-    private Date dateCreated;
+    private LocalDateTime dateCreated;
     /**
      * 修改时间
      */
-    private Date lastModified;
+    private LocalDateTime lastModified;
     private Integer recordStatus;
     /**
      * 更改次数/每次修改+1
@@ -34,19 +34,19 @@ public class BaseDomain implements Serializable {
         this.id = id;
     }
 
-    public Date getDateCreated() {
+    public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getLastModified() {
+    public LocalDateTime getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
     }
 
