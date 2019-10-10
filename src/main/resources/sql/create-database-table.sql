@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS coupon_template_entity
     record_status             INT          DEFAULT 0            NOT NULL COMMENT '状态',
     sort_priority             INT          DEFAULT 0,
     remark                    VARCHAR(255),
-    date_created              timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_modified             timestamp DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP,
+    date_created              DATETIME                          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_modified             DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT unique_template_name UNIQUE (template_name)
 );
 
@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS coupon_entity
     record_status             INT          DEFAULT 0            NOT NULL COMMENT '状态',
     sort_priority             INT          DEFAULT 0,
     remark                    VARCHAR(255),
-    date_created              timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_modified             timestamp DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP
+    date_created              DATETIME                          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_modified             DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # 序列号
@@ -62,14 +62,14 @@ CREATE TABLE IF NOT EXISTS sequence_entity
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     sequence_name VARCHAR(50) COMMENT 'key值',
-    current_value BIGINT    DEFAULT 1               NOT NULL
+    current_value BIGINT   DEFAULT 1                NOT NULL
         COMMENT '当前值',
-    version       INT       DEFAULT 0               NOT NULL,
-    record_status INT       DEFAULT 0               NOT NULL,
-    sort_priority INT       DEFAULT 0,
+    version       INT      DEFAULT 0                NOT NULL,
+    record_status INT      DEFAULT 0                NOT NULL,
+    sort_priority INT      DEFAULT 0,
     remark        VARCHAR(255),
-    date_created  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_modified timestamp DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP,
+    date_created  DATETIME                          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_modified DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT unique_sequence_name UNIQUE (sequence_name)
 );
 
@@ -78,12 +78,12 @@ CREATE TABLE IF NOT EXISTS resource_entity
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     url           VARCHAR(50)                       NOT NULL COMMENT 'url资源',
-    roles         VARCHAR(50)                       NOT NULL COMMENT '该资源此类角色可访问',
-    version       INT       DEFAULT 0               NOT NULL,
-    record_status INT       DEFAULT 0               NOT NULL,
-    sort_priority INT       DEFAULT 0,
+    roles         VARCHAR(50)                       NOT NULL COMMENT '该资源此类角色可访问,角色之间逗号分隔',
+    version       INT      DEFAULT 0                NOT NULL,
+    record_status INT      DEFAULT 0                NOT NULL,
+    sort_priority INT      DEFAULT 0,
     remark        VARCHAR(255),
-    date_created  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_modified timestamp DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP,
+    date_created  DATETIME                          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_modified DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT unique_url UNIQUE (url)
 );

@@ -18,6 +18,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private static final String SEPARATOR = ",";
     private FilterInvocationSecurityMetadataSource superMetadataSource;
     ResourceEntityMapper resourceEntityMapper;
 
@@ -44,7 +45,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
             ConfigAttribute cfg;
             for (ResourceEntity permission : resourceEntityList) {
                 array = new ArrayList<>();
-                for (String role : permission.getRoles().split(",")) {
+                for (String role : permission.getRoles().split(SEPARATOR)) {
                     cfg = new SecurityConfig(role);
                     array.add(cfg);
                 }
