@@ -32,7 +32,7 @@
             <property name="useUnicode" value="true"/>
             <property name="characterEncoding" value="utf8"/>
             <property name="allowPublicKeyRetrieval" value="true"/>
-            <property name="serverTimezone" value="GMT+8"/>
+            <property name="serverTimezone" value="Asia/Shanghai"/>
             <!--            MYSQL 8.0 ,非预期结果      -->
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
