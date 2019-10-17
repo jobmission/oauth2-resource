@@ -2,6 +2,7 @@ package com.revengemission.sso.oauth2.resource.coupon.config;
 
 import com.revengemission.sso.oauth2.resource.coupon.persistence.mapper.ResourceEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +17,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtTimestampValidator;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoderJwkSupport;
+import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
@@ -35,6 +35,9 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     OAuth2ResourceServerProperties oAuth2ResourceServerProperties;
+
+    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+    private String issuerUri;
 
     @Autowired
     CustomAccessDeniedHandler customAccessDeniedHandler;
@@ -85,16 +88,21 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
-        return new GrantedAuthoritiesExtractor();
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("authorities");
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+        return jwtAuthenticationConverter;
     }
 
     @SuppressWarnings("unchecked")
     @Bean
     JwtDecoder jwtDecoder() {
-        NimbusJwtDecoderJwkSupport jwtDecoder = new NimbusJwtDecoderJwkSupport(oAuth2ResourceServerProperties.getJwt().getJwkSetUri());
+        NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(issuerUri);
         OAuth2TokenValidator<Jwt> tokenBlackListValidator = new TokenBlackListValidator();
-        JwtTimestampValidator timestampValidator = new JwtTimestampValidator();
-        OAuth2TokenValidator<Jwt> delegatingOAuth2TokenValidator = new DelegatingOAuth2TokenValidator<>(tokenBlackListValidator, timestampValidator);
+        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuerUri);
+        OAuth2TokenValidator<Jwt> delegatingOAuth2TokenValidator = new DelegatingOAuth2TokenValidator<>(withIssuer, tokenBlackListValidator);
         jwtDecoder.setJwtValidator(delegatingOAuth2TokenValidator);
         return jwtDecoder;
     }

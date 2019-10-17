@@ -26,30 +26,30 @@ public class Swagger2Configuration {
     public Docket createRestApi() {
         ParameterBuilder aParameterBuilder = new ParameterBuilder();
         aParameterBuilder
-                .name("Authorization")
-                .description("Authorization")
-                .modelRef(new ModelRef("string"))
-                .parameterType("header")
-                .description("Bearer授权模式，'Bearer '开始")
-                .required(false)
-                .build();
+            .name("Authorization")
+            .description("Authorization")
+            .modelRef(new ModelRef("string"))
+            .parameterType("header")
+            .description("Bearer授权模式，'Bearer '开始")
+            .required(false)
+            .build();
 
         List<Parameter> aParameters = new ArrayList<>();
         aParameters.add(aParameterBuilder.build());
 
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .ignoredParameterTypes(Principal.class)
-                .ignoredParameterTypes(JwtAuthenticationToken.class)
-                .globalOperationParameters(aParameters).select()
-                .apis(RequestHandlerSelectors.basePackage("com.revengemission.sso.oauth2.resource.coupon.controller"))
-                .paths(PathSelectors.any())
-                .build();
+            .apiInfo(apiInfo())
+            .ignoredParameterTypes(Principal.class)
+            .ignoredParameterTypes(JwtAuthenticationToken.class)
+            .globalOperationParameters(aParameters).select()
+            .apis(RequestHandlerSelectors.basePackage("com.revengemission.sso.oauth2.resource.coupon.controller"))
+            .paths(PathSelectors.any())
+            .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("online APIs").description("登录获取token接口不在这里，\n"
-                + "请求需要权限的接口时在请求header中添加Authorization token，采用Bearer 模式，如：\n" + "Authorization:Bearer a.b.c")
-                .termsOfServiceUrl("").version("0.0.1-SNAPSHOT").build();
+            + "请求需要权限的接口时在请求header中添加Authorization token，采用Bearer 模式，如：\n" + "Authorization:Bearer a.b.c")
+            .termsOfServiceUrl("").version("0.0.1-SNAPSHOT").build();
     }
 }

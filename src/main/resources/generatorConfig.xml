@@ -6,9 +6,9 @@
 <generatorConfiguration>
 
     <context id="MySql2Tables" targetRuntime="MyBatis3">
-        <property name="mergeable" value="false"/>
+        <property name="mergeable" value="false"/>f
         <!--
-        http://www.mybatis.org/generator/reference/plugins.html
+        http://www.mybatis.org/generator/reference/plugins.htmlF
         -->
         <!-- 这个插件给由MBG生成的Java模型对象增加了equals和hashCode方法 -->
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>

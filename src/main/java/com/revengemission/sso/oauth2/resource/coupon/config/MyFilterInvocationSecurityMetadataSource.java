@@ -38,7 +38,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 
         List<ResourceEntity> resourceEntityList = resourceEntityMapper.selectByExample(new ResourceEntityExample());
         if (resourceEntityList == null || resourceEntityList.size() == 0) {
-            log.error("没有查到资源权限，请先配置resource_entity！");
+            log.warn("DB中没有查到资源权限列表，请先配置resource_entity！");
         } else {
             resourceMap.clear();
             Collection<ConfigAttribute> array;
@@ -84,7 +84,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
         }
 
         log.info("FullRequestUrl:" + filterInvocation.getFullRequestUrl());
-        log.info("Url不在权限列表当中,trying default...");
+        log.info("【" + filterInvocation.getRequestUrl() + "】不在DB权限列表当中,尝试匹配代码中的权限配置...");
         //默认白名单
 ///        return null;
 
