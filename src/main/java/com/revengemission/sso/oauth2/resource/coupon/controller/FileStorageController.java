@@ -8,6 +8,8 @@ import com.revengemission.sso.oauth2.resource.coupon.utils.ClientIpUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ import java.util.*;
 @Api(value = "文件上传、下载接口", tags = {"文件上传、下载接口"})
 @Controller
 public class FileStorageController {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Value("${storage.location.public}")
     private String publicStorageLocation;
@@ -173,7 +177,9 @@ public class FileStorageController {
                         String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile, fileType);
                         fileNames.add(newFileName);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        if (log.isErrorEnabled()) {
+                            log.error("上传文件异常", e);
+                        }
                     }
                 }
             });
@@ -210,7 +216,9 @@ public class FileStorageController {
                 String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile, fileType);
                 fileNames.add(newFileName);
             } catch (Exception e) {
-                e.printStackTrace();
+                if (log.isErrorEnabled()) {
+                    log.error("上传文件异常", e);
+                }
             }
         }
         if (fileNames.size() > 0) {
