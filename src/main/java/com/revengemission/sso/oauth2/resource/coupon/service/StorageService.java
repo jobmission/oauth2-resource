@@ -9,14 +9,14 @@ import java.nio.file.Path;
 
 public interface StorageService {
     /**
-     * 保存等硬盘等
+     * 保存硬盘等
      *
      * @param directoryPath
      * @param file
      * @return
      * @throws IOException
      */
-    String save(Path directoryPath, MultipartFile file) throws IOException;
+    String save(Path directoryPath, MultipartFile file, String fileType) throws IOException;
 
     /**
      * 以Resource的形式读取

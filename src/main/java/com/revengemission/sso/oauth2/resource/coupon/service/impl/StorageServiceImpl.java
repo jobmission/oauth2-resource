@@ -4,7 +4,6 @@ import com.revengemission.sso.oauth2.resource.coupon.service.StorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -20,13 +19,11 @@ import java.util.UUID;
 public class StorageServiceImpl implements StorageService {
 
     @Override
-    public String save(Path directoryPath, MultipartFile file) throws IOException {
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+    public String save(Path directoryPath, MultipartFile file, String fileType) throws IOException {
         if (!Files.exists(directoryPath)) {
             Files.createDirectories(directoryPath);
         }
 
-        String fileType = StringUtils.getFilenameExtension(filename);
         String newFileName = UUID.randomUUID() + "." + fileType;
         try (InputStream inputStream = file.getInputStream()) {
             Files.copy(inputStream, directoryPath.resolve(newFileName),

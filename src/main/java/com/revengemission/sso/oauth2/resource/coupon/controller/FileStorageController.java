@@ -170,7 +170,7 @@ public class FileStorageController {
                 }
                 if (whitelist.contains(StringUtils.trimAllWhitespace(fileType).toLowerCase())) {
                     try {
-                        String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile);
+                        String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile, fileType);
                         fileNames.add(newFileName);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -199,11 +199,15 @@ public class FileStorageController {
                 fileType = "jpg";
             } else if (StringUtils.endsWithIgnoreCase("image/jpeg", multipartFileContentType)) {
                 fileType = "jpg";
+            } else if (StringUtils.endsWithIgnoreCase("application/pdf", multipartFileContentType)) {
+                fileType = "pdf";
+            } else if (StringUtils.endsWithIgnoreCase("application/msword", multipartFileContentType)) {
+                fileType = "doc";
             }
         }
         if (whitelist.contains(StringUtils.trimAllWhitespace(fileType).toLowerCase())) {
             try {
-                String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile);
+                String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile, fileType);
                 fileNames.add(newFileName);
             } catch (Exception e) {
                 e.printStackTrace();
