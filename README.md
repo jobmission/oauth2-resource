@@ -11,6 +11,7 @@ grant all privileges on coupon_db.* to 'coupon'@'localhost';
 建表sql在src/main/resources/sql/create-database-table.sql
 初始化sql在src/main/resources/sql/init.sql
 ````
+## !!!启动Resource Server之前，须先确认OAUTH2 server运行中，并修改application.properties中issuer-uri指向OAUTH2 server，最后启动Resource Server应用
 
 ## 传递token三种方式
 * 请求时添加Authorization header
