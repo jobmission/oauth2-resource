@@ -7,7 +7,7 @@
 
     <context id="MySql2Tables" targetRuntime="MyBatis3">
         <!--生成的xml文件完全覆盖，需结合overwrite配置和UnmergeableXmlMappersPlugin插件使用-->
-        <property name="mergeable" value="false"/>f
+        <property name="mergeable" value="false"/>
         <!--
         http://www.mybatis.org/generator/reference/plugins.htmlF
         -->
