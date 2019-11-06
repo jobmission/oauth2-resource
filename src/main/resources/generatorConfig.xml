@@ -6,6 +6,7 @@
 <generatorConfiguration>
 
     <context id="MySql2Tables" targetRuntime="MyBatis3">
+        <!--生成的xml文件完全覆盖，需结合overwrite配置和UnmergeableXmlMappersPlugin插件使用-->
         <property name="mergeable" value="false"/>f
         <!--
         http://www.mybatis.org/generator/reference/plugins.htmlF
@@ -33,7 +34,7 @@
             <property name="characterEncoding" value="utf8"/>
             <property name="allowPublicKeyRetrieval" value="true"/>
             <property name="serverTimezone" value="Asia/Shanghai"/>
-            <!--            MYSQL 8.0 ,非预期结果      -->
+            <!--    ！！解决MYSQL 8.0 ,非预期结果！！！    -->
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
@@ -63,6 +64,11 @@
             <columnOverride column="version" javaType="int"/>
             <columnOverride column="sort_priority" javaType="int"/>
             <columnOverride column="record_status" javaType="int"/>
+
+            <!--忽略某些字段，如临时字段、json虚拟列等字段-->
+            <ignoreColumnsByRegex pattern="(?i)virtual_column_.*">
+                <except column="virtual_column_AAA"/>
+            </ignoreColumnsByRegex>
         </table>
 
     </context>
