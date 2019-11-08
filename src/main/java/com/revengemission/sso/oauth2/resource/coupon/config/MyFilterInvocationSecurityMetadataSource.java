@@ -22,6 +22,8 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
     private FilterInvocationSecurityMetadataSource superMetadataSource;
     ResourceEntityMapper resourceEntityMapper;
 
+    List<String> allowedRequest = Arrays.asList("/swagger-ui.html", "/v2/api-docs", "/webjars/**", "/swagger-resources/**", "/actuator/**");
+
 
     public MyFilterInvocationSecurityMetadataSource(FilterInvocationSecurityMetadataSource expressionBasedFilterInvocationSecurityMetadataSource, ResourceEntityMapper resourceEntityMapper) {
         this.superMetadataSource = expressionBasedFilterInvocationSecurityMetadataSource;
@@ -68,7 +70,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
         FilterInvocation filterInvocation = (FilterInvocation) object;
 
 
-        if (isMatcherAllowedRequest(filterInvocation)) {
+        if (isCommonAllowedRequest(filterInvocation)) {
             //return null 表示允许访问，不做拦截
             return null;
         }
@@ -99,17 +101,10 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
      * @param fi 当前请求
      * @return 是否在范围中
      */
-    private boolean isMatcherAllowedRequest(FilterInvocation fi) {
-        return allowedRequest().stream().map(AntPathRequestMatcher::new)
+    private boolean isCommonAllowedRequest(FilterInvocation fi) {
+        return allowedRequest.stream().map(AntPathRequestMatcher::new)
             .filter(requestMatcher -> requestMatcher.matches(fi.getHttpRequest()))
             .toArray().length > 0;
-    }
-
-    /**
-     * @return 定义允许请求的列表
-     */
-    private List<String> allowedRequest() {
-        return Arrays.asList("/swagger-ui.html", "/v2/api-docs", "/webjars/**", "/swagger-resources/**");
     }
 
     @Override
