@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS resource_entity
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     url           VARCHAR(50)                       NOT NULL COMMENT 'url资源',
-    roles         VARCHAR(50)                       NOT NULL COMMENT '该资源此类角色可访问,角色之间逗号分隔',
+    permission   VARCHAR(50)                       NOT NULL COMMENT '权限许可表达式，详细参考spring 权限表达式',
     version       INT      DEFAULT 0                NOT NULL,
     record_status INT      DEFAULT 0                NOT NULL,
     sort_priority INT      DEFAULT 0,

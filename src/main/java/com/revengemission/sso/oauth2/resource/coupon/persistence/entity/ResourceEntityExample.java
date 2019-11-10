@@ -235,73 +235,73 @@ public class ResourceEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andRolesIsNull() {
-            addCriterion("roles is null");
+        public Criteria andPermissionIsNull() {
+            addCriterion("permission is null");
             return (Criteria) this;
         }
 
-        public Criteria andRolesIsNotNull() {
-            addCriterion("roles is not null");
+        public Criteria andPermissionIsNotNull() {
+            addCriterion("permission is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRolesEqualTo(String value) {
-            addCriterion("roles =", value, "roles");
+        public Criteria andPermissionEqualTo(String value) {
+            addCriterion("permission =", value, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesNotEqualTo(String value) {
-            addCriterion("roles <>", value, "roles");
+        public Criteria andPermissionNotEqualTo(String value) {
+            addCriterion("permission <>", value, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesGreaterThan(String value) {
-            addCriterion("roles >", value, "roles");
+        public Criteria andPermissionGreaterThan(String value) {
+            addCriterion("permission >", value, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesGreaterThanOrEqualTo(String value) {
-            addCriterion("roles >=", value, "roles");
+        public Criteria andPermissionGreaterThanOrEqualTo(String value) {
+            addCriterion("permission >=", value, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesLessThan(String value) {
-            addCriterion("roles <", value, "roles");
+        public Criteria andPermissionLessThan(String value) {
+            addCriterion("permission <", value, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesLessThanOrEqualTo(String value) {
-            addCriterion("roles <=", value, "roles");
+        public Criteria andPermissionLessThanOrEqualTo(String value) {
+            addCriterion("permission <=", value, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesLike(String value) {
-            addCriterion("roles like", value, "roles");
+        public Criteria andPermissionLike(String value) {
+            addCriterion("permission like", value, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesNotLike(String value) {
-            addCriterion("roles not like", value, "roles");
+        public Criteria andPermissionNotLike(String value) {
+            addCriterion("permission not like", value, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesIn(List<String> values) {
-            addCriterion("roles in", values, "roles");
+        public Criteria andPermissionIn(List<String> values) {
+            addCriterion("permission in", values, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesNotIn(List<String> values) {
-            addCriterion("roles not in", values, "roles");
+        public Criteria andPermissionNotIn(List<String> values) {
+            addCriterion("permission not in", values, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesBetween(String value1, String value2) {
-            addCriterion("roles between", value1, value2, "roles");
+        public Criteria andPermissionBetween(String value1, String value2) {
+            addCriterion("permission between", value1, value2, "permission");
             return (Criteria) this;
         }
 
-        public Criteria andRolesNotBetween(String value1, String value2) {
-            addCriterion("roles not between", value1, value2, "roles");
+        public Criteria andPermissionNotBetween(String value1, String value2) {
+            addCriterion("permission not between", value1, value2, "permission");
             return (Criteria) this;
         }
 

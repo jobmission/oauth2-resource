@@ -8,7 +8,7 @@ public class ResourceEntity implements Serializable {
 
     private String url;
 
-    private String roles;
+    private String permission;
 
     private int version;
 
@@ -40,12 +40,12 @@ public class ResourceEntity implements Serializable {
         this.url = url == null ? null : url.trim();
     }
 
-    public String getRoles() {
-        return roles;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles == null ? null : roles.trim();
+    public void setPermission(String permission) {
+        this.permission = permission == null ? null : permission.trim();
     }
 
     public int getVersion() {
@@ -110,7 +110,7 @@ public class ResourceEntity implements Serializable {
         ResourceEntity other = (ResourceEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
-            && (this.getRoles() == null ? other.getRoles() == null : this.getRoles().equals(other.getRoles()))
+            && (this.getPermission() == null ? other.getPermission() == null : this.getPermission().equals(other.getPermission()))
             && (this.getVersion() == other.getVersion())
             && (this.getRecordStatus() == other.getRecordStatus())
             && (this.getSortPriority() == other.getSortPriority())
@@ -125,7 +125,7 @@ public class ResourceEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
-        result = prime * result + ((getRoles() == null) ? 0 : getRoles().hashCode());
+        result = prime * result + ((getPermission() == null) ? 0 : getPermission().hashCode());
         result = prime * result + getVersion();
         result = prime * result + getRecordStatus();
         result = prime * result + getSortPriority();
@@ -143,7 +143,7 @@ public class ResourceEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", url=").append(url);
-        sb.append(", roles=").append(roles);
+        sb.append(", permission=").append(permission);
         sb.append(", version=").append(version);
         sb.append(", recordStatus=").append(recordStatus);
         sb.append(", sortPriority=").append(sortPriority);

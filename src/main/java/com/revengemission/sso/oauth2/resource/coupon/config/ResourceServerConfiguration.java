@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.vote.AffirmativeBased;
-import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,7 +18,6 @@ import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
@@ -55,7 +53,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .mvcMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-//            .mvcMatchers("/swagger-ui.html").permitAll()
+            .mvcMatchers("/cat/list").hasAnyRole("ABC", "USER")
 //            .mvcMatchers("/v2/api-docs").permitAll()
 //            .mvcMatchers("/webjars/**").permitAll()
 //            .mvcMatchers("/swagger-resources/**").permitAll()
@@ -79,19 +77,17 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
     private class MyObjectPostProcessor implements ObjectPostProcessor<FilterSecurityInterceptor> {
         @Override
         public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
-            fsi.setSecurityMetadataSource(new MyFilterInvocationSecurityMetadataSource(fsi.getSecurityMetadataSource(), resourceEntityMapper));
+            fsi.setSecurityMetadataSource(new ExpressionFilterInvocationSecurityMetadataSource(fsi.getSecurityMetadataSource(), resourceEntityMapper));
             AffirmativeBased affirmativeBased = (AffirmativeBased) fsi.getAccessDecisionManager();
-            affirmativeBased.getDecisionVoters().add(0, new MyAccessDecisionVoter());
-            affirmativeBased.getDecisionVoters().add(0, new RoleVoter());
+            affirmativeBased.getDecisionVoters().add(new ExpressionVoter());
+///            affirmativeBased.getDecisionVoters().add(new RoleVoter());
             return fsi;
         }
     }
 
     Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("authorities");
+        GrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new GrantedAuthoritiesConverter("authorities");
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }
