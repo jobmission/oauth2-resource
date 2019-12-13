@@ -87,7 +87,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
 
     Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        GrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new GrantedAuthoritiesConverter("authorities");
+        GrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new GrantedAuthoritiesConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }

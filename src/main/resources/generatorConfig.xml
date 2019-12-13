@@ -5,11 +5,11 @@
 
 <generatorConfiguration>
 
-    <context id="MySql2Tables" targetRuntime="MyBatis3">
+    <context id="MySql2Tables" targetRuntime="MyBatis3" defaultModelType="flat">
         <!--生成的xml文件完全覆盖，需结合overwrite配置和UnmergeableXmlMappersPlugin插件使用-->
         <property name="mergeable" value="false"/>
         <!--
-        http://www.mybatis.org/generator/reference/plugins.htmlF
+        http://www.mybatis.org/generator/reference/plugins.html
         -->
         <!-- 这个插件给由MBG生成的Java模型对象增加了equals和hashCode方法 -->
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
