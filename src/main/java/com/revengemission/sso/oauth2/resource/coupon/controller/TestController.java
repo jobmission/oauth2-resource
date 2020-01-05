@@ -31,6 +31,20 @@ public class TestController {
         return result;
     }
 
+    @GetMapping("/cat/list")
+    public Map<String, Object> catList(JwtAuthenticationToken authenticationToken) {
+        Map<String, Object> result = new HashMap<>(16);
+        result.put("status", 1);
+        return result;
+    }
+
+    @GetMapping("/dog/list")
+    public Map<String, Object> dogList(JwtAuthenticationToken authenticationToken) {
+        Map<String, Object> result = new HashMap<>(16);
+        result.put("status", 1);
+        return result;
+    }
+
     @ApiOperation("测试接口-产品列表")
     @GetMapping("/product/list")
     public Map<String, Object> productList(JwtAuthenticationToken authenticationToken) {

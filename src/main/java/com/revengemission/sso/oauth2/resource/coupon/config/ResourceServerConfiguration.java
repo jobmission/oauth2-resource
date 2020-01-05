@@ -53,7 +53,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .mvcMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .mvcMatchers("/cat/list").hasAnyRole("ABC", "USER")
+            .mvcMatchers("/cat/list").hasAnyAuthority("ROLE_ABC", "ROLE_USER")
 //            .mvcMatchers("/v2/api-docs").permitAll()
 //            .mvcMatchers("/webjars/**").permitAll()
 //            .mvcMatchers("/swagger-resources/**").permitAll()
