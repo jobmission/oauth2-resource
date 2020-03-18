@@ -1,5 +1,6 @@
 package com.revengemission.sso.oauth2.resource.coupon.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -21,6 +22,12 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class Swagger2Configuration {
+
+    @Value("${app.build.time}")
+    String buildTime;
+
+    @Value("${app.version}")
+    String appVersion;
 
     @Bean
     public Docket createRestApi() {
@@ -50,6 +57,6 @@ public class Swagger2Configuration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("online APIs").description("登录获取token接口不在这里，\n"
             + "请求需要权限的接口时在请求header中添加Authorization token，采用Bearer 模式，如：\n" + "Authorization:Bearer a.b.c")
-            .termsOfServiceUrl("").version("0.0.1-SNAPSHOT").build();
+            .termsOfServiceUrl("").version(appVersion + " @" + buildTime).build();
     }
 }
