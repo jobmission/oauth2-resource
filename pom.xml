@@ -175,6 +175,7 @@
                 </configuration>
             </plugin>
 
+            <!-- mvn mybatis-generator:generate -->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
