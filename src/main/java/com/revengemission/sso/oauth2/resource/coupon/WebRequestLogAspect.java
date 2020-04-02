@@ -1,5 +1,6 @@
 package com.revengemission.sso.oauth2.resource.coupon;
 
+import com.revengemission.sso.oauth2.resource.coupon.utils.ClientIpUtils;
 import com.revengemission.sso.oauth2.resource.coupon.utils.JsonUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -18,6 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.security.Principal;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,8 +58,16 @@ public class WebRequestLogAspect {
                         requestBody = JsonUtil.objectToJsonString(object);
                     }
                     StringBuffer stringBuffer = new StringBuffer();
-                    stringBuffer.append("\nRequest from ");
-                    stringBuffer.append(request.getRemoteHost());
+                    stringBuffer.append("\n");
+
+                    Principal principal = request.getUserPrincipal();
+                    if (principal != null) {
+                        stringBuffer.append("Request user ");
+                        stringBuffer.append(principal.getName());
+                        stringBuffer.append(";\n");
+                    }
+                    stringBuffer.append("Request from ");
+                    stringBuffer.append(ClientIpUtils.getIpAddress(request));
                     stringBuffer.append(";\n");
                     stringBuffer.append("User-Agent = ");
                     stringBuffer.append(request.getHeader("User-Agent"));
@@ -67,9 +77,6 @@ public class WebRequestLogAspect {
                     stringBuffer.append(";\n");
                     stringBuffer.append("request method = ");
                     stringBuffer.append(request.getMethod());
-                    stringBuffer.append(";\n");
-                    stringBuffer.append("content type = ");
-                    stringBuffer.append(request.getContentType());
                     stringBuffer.append(";\n");
                     stringBuffer.append("request parameters = ");
                     stringBuffer.append(parametersString);
@@ -81,7 +88,7 @@ public class WebRequestLogAspect {
                     log.info(stringBuffer.toString());
 
                 } catch (Exception e) {
-                    log.info("log http request Exception: ", e);
+                    log.error("log http request Exception: ", e);
                 }
             }
         }
@@ -104,7 +111,7 @@ public class WebRequestLogAspect {
                 try {
                     log.info("Response from server : \n" + JsonUtil.objectToJsonString(ret));
                 } catch (Exception e) {
-                    log.info("log http response Exception: ", e);
+                    log.error("log http response Exception: ", e);
                 }
             }
         }
