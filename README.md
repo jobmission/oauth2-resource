@@ -1,4 +1,4 @@
-## 接口采用Spring security OAuth2 ResourceServer认证
+## 接口采用Spring security OAuth2 Resource Server认证
 ## 创建数据库：持久层采用Mybatis框架
 ````
 默认用Mysql数据库，如需用其他数据库请修改配置文件以及数据库驱动
