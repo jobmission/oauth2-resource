@@ -123,13 +123,13 @@ public class WebRequestLogAspect {
 
         int i = 0;
         for (Annotation[] annotations : parameterAnnotations) {
-            Object arg = args[i];
-///            String name = parameters[i++].getDeclaringExecutable().getName();
+///            String name = parameters[i].getDeclaringExecutable().getName();
             for (Annotation annotation : annotations) {
                 if (annotation instanceof RequestBody) {
-                    return arg;
+                    return args[i];
                 }
             }
+			i++;
         }
         return null;
     }
