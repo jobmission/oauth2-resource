@@ -40,8 +40,8 @@ public class FileStorageController {
     @Value("${storage.location.protected}")
     private String protectedStorageLocation;
 
-    @Value("#{'${storage.type.whitelist}'.split(',')}")
-    private Set<String> whitelist;
+    @Value("#{'${storage.type.allowlist}'.split(',')}")
+    private Set<String> allowlist;
 
     @Autowired
     StorageService storageService;
@@ -172,7 +172,7 @@ public class FileStorageController {
                         fileType = "jpg";
                     }
                 }
-                if (whitelist.contains(StringUtils.trimAllWhitespace(fileType).toLowerCase())) {
+                if (allowlist.contains(StringUtils.trimAllWhitespace(fileType).toLowerCase())) {
                     try {
                         String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile, fileType);
                         fileNames.add(newFileName);
@@ -211,7 +211,7 @@ public class FileStorageController {
                 fileType = "doc";
             }
         }
-        if (whitelist.contains(StringUtils.trimAllWhitespace(fileType).toLowerCase())) {
+        if (allowlist.contains(StringUtils.trimAllWhitespace(fileType).toLowerCase())) {
             try {
                 String newFileName = storageService.save(Paths.get(publicStorageLocation), multipartFile, fileType);
                 fileNames.add(newFileName);
