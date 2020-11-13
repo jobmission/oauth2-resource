@@ -60,7 +60,7 @@ public class GrantedAuthoritiesConverter implements Converter<Jwt, Collection<Gr
                         roles.add(e.asText());
                     });
                 } else {
-                    roles.add(jsonNode.textValue());
+                    roles.add(jsonNode.asText());
                 }
             });
 
@@ -71,7 +71,7 @@ public class GrantedAuthoritiesConverter implements Converter<Jwt, Collection<Gr
                         roles.add(e.asText());
                     });
                 } else {
-                    roles.add(jsonNode.textValue());
+                    roles.add(jsonNode.asText());
                 }
             });
 
