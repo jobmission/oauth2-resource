@@ -7,17 +7,14 @@ import com.revengemission.sso.oauth2.resource.coupon.persistence.mapper.CouponEn
 import com.revengemission.sso.oauth2.resource.coupon.persistence.mapper.CouponTemplateEntityMapper;
 import com.revengemission.sso.oauth2.resource.coupon.service.SequenceService;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class ApplicationTests {
 
@@ -31,7 +28,7 @@ public class ApplicationTests {
     SequenceService sequenceService;
 
 
-    @Ignore
+    @Disabled
     @Test
     public void sequenceTest() throws InterruptedException {
 
@@ -44,7 +41,7 @@ public class ApplicationTests {
 
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void couponTest() {
 

@@ -1,11 +1,9 @@
 package com.revengemission.sso.oauth2.resource.coupon.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.Option;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revengemission.sso.oauth2.resource.coupon.utils.JsonUtil;
-import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
@@ -16,6 +14,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -24,9 +23,10 @@ import java.util.List;
  */
 public class GrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
     private Logger log = LoggerFactory.getLogger(this.getClass());
+    ObjectMapper objectMapper;
 
-
-    public GrantedAuthoritiesConverter() {
+    public GrantedAuthoritiesConverter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -44,31 +44,41 @@ public class GrantedAuthoritiesConverter implements Converter<Jwt, Collection<Gr
         return grantedAuthorities;
     }
 
-    Configuration conf = Configuration.builder().options(Option.ALWAYS_RETURN_LIST, Option.SUPPRESS_EXCEPTIONS).build();
 
     @SuppressWarnings("unchecked")
     Collection<String> getRoles(String claimJsonString) {
         if (claimJsonString == null) {
             return Collections.emptyList();
         }
+        Collection<String> roles = new HashSet<>();
+        try {
+            JsonNode node = objectMapper.readTree(claimJsonString);
+            List<JsonNode> jsonNodes = node.findValues("roles");
+            jsonNodes.forEach(jsonNode -> {
+                if (jsonNode.isArray()) {
+                    jsonNode.elements().forEachRemaining(e -> {
+                        roles.add(e.asText());
+                    });
+                } else {
+                    roles.add(jsonNode.textValue());
+                }
+            });
 
-        Object document = Configuration.defaultConfiguration().jsonProvider().parse(claimJsonString);
+            jsonNodes = node.findValues("authorities");
+            jsonNodes.forEach(jsonNode -> {
+                if (jsonNode.isArray()) {
+                    jsonNode.elements().forEachRemaining(e -> {
+                        roles.add(e.asText());
+                    });
+                } else {
+                    roles.add(jsonNode.textValue());
+                }
+            });
 
-        List<Object> authorities = JsonPath.using(conf).parse(document).read("$..roles");
 
-        if (authorities == null || authorities.size() == 0) {
-            authorities = JsonPath.using(conf).parse(document).read("$..authorities");
+        } catch (JsonProcessingException e) {
+            log.error("读取role exception", e);
         }
-        Collection<String> roles = new ArrayList<>();
-        authorities.forEach(authorityItem -> {
-            if (authorityItem instanceof String) {
-                roles.add((String) authorityItem);
-            } else if (authorityItem instanceof JSONArray) {
-                roles.addAll((Collection<String>) authorityItem);
-            } else if (authorityItem instanceof Collection) {
-                roles.addAll((Collection<String>) authorityItem);
-            }
-        });
 
         return roles;
     }

@@ -1,5 +1,6 @@
 package com.revengemission.sso.oauth2.resource.coupon.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revengemission.sso.oauth2.resource.coupon.persistence.mapper.ResourceEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,9 +17,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.jwt.JwtValidators;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 /**
  * Resource Server (default) will attempt to coerce these scopes into a list of granted authorities,
@@ -26,7 +33,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
  * To use own custom attribute, may need to adapt the attribute or a composition of attributes into internalized authorities.
  * implements Converter<Jwt, AbstractAuthenticationToken>,or extends JwtAuthenticationConverter;
  * 默认验证JWT中scope,详见JwtAuthenticationConverter,如果使用JWT中其他claim字段, 需要覆盖jwtAuthenticationConverter，参照注释
- * https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/htmlsingle/#oauth2resourceserver
+ * https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver
  */
 @Configuration
 public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
@@ -42,6 +49,9 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     ResourceEntityMapper resourceEntityMapper;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -87,7 +97,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
 
     Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        GrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new GrantedAuthoritiesConverter();
+        GrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new GrantedAuthoritiesConverter(objectMapper);
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }
