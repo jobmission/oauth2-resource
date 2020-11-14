@@ -24,8 +24,6 @@ import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 
 /**
  * Resource Server (default) will attempt to coerce these scopes into a list of granted authorities,
@@ -106,7 +104,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     JwtDecoder jwtDecoder() {
         NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(issuerUri);
-        OAuth2TokenValidator<Jwt> tokenBlackListValidator = new TokenBlackListValidator();
+        OAuth2TokenValidator<Jwt> tokenBlackListValidator = new TokenBlockValidator();
         OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuerUri);
         OAuth2TokenValidator<Jwt> delegatingOAuth2TokenValidator = new DelegatingOAuth2TokenValidator<>(withIssuer, tokenBlackListValidator);
         jwtDecoder.setJwtValidator(delegatingOAuth2TokenValidator);

@@ -52,8 +52,8 @@ public class GrantedAuthoritiesConverter implements Converter<Jwt, Collection<Gr
         }
         Collection<String> roles = new HashSet<>();
         try {
-            JsonNode node = objectMapper.readTree(claimJsonString);
-            List<JsonNode> jsonNodes = node.findValues("roles");
+            JsonNode treeNode = objectMapper.readTree(claimJsonString);
+            List<JsonNode> jsonNodes = treeNode.findValues("roles");
             jsonNodes.forEach(jsonNode -> {
                 if (jsonNode.isArray()) {
                     jsonNode.elements().forEachRemaining(e -> {
@@ -64,7 +64,7 @@ public class GrantedAuthoritiesConverter implements Converter<Jwt, Collection<Gr
                 }
             });
 
-            jsonNodes = node.findValues("authorities");
+            jsonNodes = treeNode.findValues("authorities");
             jsonNodes.forEach(jsonNode -> {
                 if (jsonNode.isArray()) {
                     jsonNode.elements().forEachRemaining(e -> {

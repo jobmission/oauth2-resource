@@ -17,10 +17,10 @@ public class CustomTokenResolver implements BearerTokenResolver {
     @Override
     public String resolve(HttpServletRequest request) {
         String access_token = resolveFromAuthorizationHeader(request);
-        if (StringUtils.isEmpty(access_token)) {
+        if (!StringUtils.hasText(access_token)) {
             access_token = resolveFromRequestParameters(request);
         }
-        if (StringUtils.isEmpty(access_token)) {
+        if (!StringUtils.hasText(access_token)) {
             access_token = resolveFromCookie(request);
         }
         return access_token;

@@ -8,16 +8,16 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 /**
- * 验证是否在黑名单等
+ * 验证是否在阻止名单等
  */
-public class TokenBlackListValidator implements OAuth2TokenValidator<Jwt> {
+public class TokenBlockValidator implements OAuth2TokenValidator<Jwt> {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     OAuth2Error error = new OAuth2Error("invalid_token", "The required audience is invalid", null);
 
     @Override
     public OAuth2TokenValidatorResult validate(Jwt jwt) {
-        if (checkTokenValid(jwt.getTokenValue())) {
+        if (checkTokenValid(jwt)) {
             return OAuth2TokenValidatorResult.success();
         } else {
             return OAuth2TokenValidatorResult.failure(error);
@@ -25,13 +25,13 @@ public class TokenBlackListValidator implements OAuth2TokenValidator<Jwt> {
     }
 
     /**
-     * 检查token是在有效，如被加入黑名单等
+     * 检查token是在有效，如被加入阻止名单等
      *
-     * @param jwtToken jwt token
+     * @param jwt jwt token
      * @return
      */
-    boolean checkTokenValid(String jwtToken) {
-        log.debug("OAuth2TokenValidator: checking token 【" + jwtToken + "】 is valid...");
+    boolean checkTokenValid(Jwt jwt) {
+        log.debug("OAuth2TokenValidator: checking token 【" + jwt.getTokenValue() + "】 is valid...");
         return true;
     }
 }
